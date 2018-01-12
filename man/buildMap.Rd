@@ -8,13 +8,13 @@ Implements different algorithms for detecting linkage groups and ordering marker
 }
 
 \usage{
-buildMap( res, opt.index, num.iso.m = NULL, use.comu = FALSE)
+buildMap( res, opt.index, min.m = NULL, use.comu = FALSE)
 }
 
 \arguments{
 	\item{res}{ An object with S3 class "netgwasmap"}
 	\item{opt.index}{ An index of a desired regularization parameter.}
-	\item{num.iso.m}{A number of unlinked markers to be counted as isolated markers. Default is one.}
+	\item{min.m}{Expected minimum number of markers in a chromosome. Optional}
 	\item{use.comu}{Using community detection algorithm to detect linkage groups. Default is FALSE.}
 }
 
@@ -23,8 +23,12 @@ This function determines linkage groups and order markers within each linkage gr
 }
 
 \value{
- \item{map}{ An estimated linkage map for a graph G associated with the specified regularization parameter in \code{opt.index}}
- }
+An object with S3 class \code{"netgwasmap"} is returned:  
+ \item{map}{ Constructed linkage map associated with \code{opt.index}.}
+ \item{opt.index}{ The index of a desired 3-D map to construct linkage map.}
+ \item{cross.typ}{The specified cross type by user. }
+ \item{allres}{ A list containing results for different regularization parameter. Belongs to class "netgwas". To visualize a path of different 3D maps consider function \code{\link{plot.netgwas}}. Note that the input data is reordered based on the estimated linkage map and is saved as data in this argument.}
+}
 
 \references{
 1. Behrouzi, P., and Wit, E. C. (2017b). De novo construction of q-ploid linkage maps using discrete graphical models. arXiv preprint, arXiv:1710.01063. \cr
@@ -45,7 +49,7 @@ data(CviCol)
 cvicol <- CviCol[ ,sample(1:ncol(CviCol), ncol(CviCol), replace=FALSE)]
 
 #Constructing linkage map for Cvi x Col genotype data
-out <- netmap(cvicol, cross.typ= "inbred", vis= FALSE, ncores=1); out
+out <- netmap(cvicol, cross= "inbred", vis= FALSE, ncores=1); out
 plot(out)
 map <- out$map; map
 
@@ -53,5 +57,8 @@ map <- out$map; map
 plot(out$allres)  
 #Constructing a linkage map for 5th three-dimensional map
 bm <- buildMap(out, opt.index=5); bm
+plot(bm, vis= "summary")
+#or
+plot(bm, vis= "interactive", label.vertex="all")
 }
 }

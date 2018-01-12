@@ -14,14 +14,19 @@ Gibbs_method = function(y, rho = NULL, n_rho = NULL, rho_ratio = NULL, Theta=NUL
   if(is.null(rho))
   {
 	if(is.null(n_rho)) n_rho = 10
-	cr = cor(y, method="spearman")
+	cr = cor(y, method="spearman") - diag(p)
 	cr[is.na(cr)] <- 0
-	S  = cr - diag(p)
-	rho_max = max(max(S),-min(S))
+	rho_max = max(max(cr),-min(cr))
+	if(rho_max == 0) 
+	{
+		ty <- npn(y, npn.func= "shrinkage")
+		cr = cor(ty, method="spearman") - diag(p)
+		rho_max = max(max(cr),-min(cr))
+	}
 	if(rho_max >= .7) rho_max = .7
 	rho_min = rho_ratio * rho_max
 	rho = exp(seq(log(rho_max), log(rho_min), length = n_rho))
-	rm(cr, S, rho_max, rho_min, rho_ratio)
+	rm(cr, rho_max, rho_min, rho_ratio)
   }
 
   Gibbs.method <- calculate_EM_Gibbs(chain, y, rho = rho[chain], Theta=Theta, lower.upper = lower.upper, em.tol = em.tol, em.iter = max.elongation, gibbs.iter = 500, mc.iter = 1000, ncores = ncores)

@@ -10,7 +10,7 @@ Plot the optimal graph by model selection
 \usage{
 \method{plot}{select}(x, vis= NULL, xlab= NULL, ylab= NULL, n.var= NULL, vertex.label= FALSE
 , ..., layout= NULL, label.vertex= "all", vertex.size= NULL, vertex.color= "red",
-edge.color= "gray29",  sel.label= NULL)
+edge.color= "gray29", sel.label= NULL, label.size = NULL)
 }
 
 \arguments{
@@ -27,6 +27,7 @@ edge.color= "gray29",  sel.label= NULL)
 	\item{vertex.color}{ONLY applicable when \code{vis}= "interactive". Optional vector (or a color name) giving the colors of the vertices. The default is "red" }
 	\item{edge.color}{ONLY applicable when \code{vis}= "interactive". Optional. The default is "gray".}
 	\item{sel.label}{ONLY applicable when \code{vis}= "interactive". A vector of vertex IDs or a single vertex ID, which you would like to be shown in the graph. ONLY applicable when \code{label.vertex}="some".}
+	\item{label.size}{ONLY applicable when \code{vis}= "interactive". The font size of the vertex labels.}
 }
 
 \value{

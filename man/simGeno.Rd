@@ -9,7 +9,7 @@ Generating discrete ordinal data based on underlying "genome-like" graph structu
 
 \usage{
 simgeno( p = 90, n = 200, k = NULL, g = NULL, adjacent = NULL, alpha =
-              NULL , beta = NULL, con.dist = "Mnorm", d = NULL, vis = FALSE)
+              NULL , beta = NULL, con.dist = "Mnorm", d = NULL, vis = TRUE)
 }
 
 \arguments{
@@ -24,7 +24,7 @@ simgeno( p = 90, n = 200, k = NULL, g = NULL, adjacent = NULL, alpha =
 	The default distribution is \code{con.dist = "Mnorm"}.}
 	\item{d}{The degrees of freedom of the continuous variable, only applicable when 
 	code{con.dist = "Mt"}. The default value is 3.}
-	\item{vis}{ Visualize the graph pattern and the adjacency matrix of the true graph structure. The default value is FALSE.}
+	\item{vis}{ Visualize the graph pattern and the adjacency matrix of the true graph structure. The default value is TRUE.}
 }
 
 \details{

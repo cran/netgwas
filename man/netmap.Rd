@@ -8,19 +8,19 @@ This is one of the main functions of \pkg{netgwas} package. This function recons
 }
 
 \usage{
-netmap(data, method = "gibbs", rho = NULL, n.rho = NULL, rho.ratio = NULL, 
-       cross.typ=c("inbred", "outbred"), iso.m= NULL, use.comu= FALSE,
+netmap(data, method = "npn", rho = NULL, n.rho = NULL, rho.ratio = NULL, 
+       cross= NULL, min.m= NULL, use.comu= FALSE,
 	   ncores = "all", em.iter = 5, verbose = TRUE)
 }
 
 \arguments{
 	\item{data}{ An (\eqn{n \times p}) matrix or a \code{data.frame} corresponding to a genotype data matrix (\eqn{n} is the sample size and \eqn{p} is the number of variables). Input data can contain missing values.}
-	\item{method}{Three available methods to construct linkage map: "gibbs", "approx", and "npn". For a medium (~500) and a large number of variables we recommend to choose "gibbs" and "approx", respectively. Choosing "npn" for a very large number of variables (> 2000) is computationally efficient. The default method is "gibbs".}
+	\item{method}{Three available methods to construct linkage map: "gibbs", "approx", and "npn". Default is "npn"}
 	\item{rho}{ A decreasing sequence of non-negative numbers that control the sparsity level. Leaving the input as \code{rho = NULL}, the program automatically computes a sequence of \code{rho} based on \code{n.rho} and \code{rho.ratio}. Users can also supply a decreasing sequence values to override this.}
 	\item{n.rho}{ The number of regularization parameters. The default value is \code{6}.}
 	\item{rho.ratio}{ Determines distance between the elements of \code{rho} sequence. A small value of \code{rho.ratio} results in a large distance between the elements of \code{rho} sequence. And a large value of \code{rho.ratio} results into a small distance between elements of \code{rho}. If keep it as NULL the program internally chooses a value.}
-	\item{cross.typ}{To be specified either "inbred" or "outbred".}
-	\item{iso.m}{ Optional. Number of isolated markers.}
+	\item{cross}{To be specified either "inbred" or "outbred".}
+	\item{min.m}{ Expected minimum number of markers in a chromosome. Optional}
 	\item{use.comu}{Use community detection algorithm to detect linkage groups. Default is FALSE.}
 	\item{ncores}{ The number of cores to use for the calculations. Using \code{ncores = "all"} automatically detects number of available cores and runs the computations in parallel on (available cores - 1).}
 	\item{em.iter}{The number of EM iterations. The default value is 5.}
@@ -32,9 +32,10 @@ Constructing linkage maps for diploid and polyploid organisms. Diploid organisms
 }
 
 \value{
-An object with S3 class \code{"netgwas"} is returned:  
+An object with S3 class \code{"netgwasmap"} is returned:  
  \item{map}{Constructed linkage map.}
  \item{opt.index}{ The index of selected graph using model selection.}
+ \item{cross.typ}{The pre-specified cross type. }
  \item{allres}{ A list containing results for different regularization parameter. Belongs to class "netgwas". To visualize a path of different 3D maps consider function \code{\link{plot.netgwas}}. Note that the input data is reordered based on the estimated linkage map and is saved as data in this argument.}
 }
 
@@ -58,7 +59,7 @@ data(CviCol)
 cvicol <- CviCol[ ,sample(1:ncol(CviCol), ncol(CviCol), replace=FALSE)]
 
 #Constructing linkage map using gibbs method
-out <- netmap(cvicol, cross.typ= "inbred", vis= FALSE, ncores=1); out
+out <- netmap(cvicol, cross= "inbred", vis= FALSE, ncores=1); out
 #Estimated linkage map
 map <- out$map; map
 #Plot the associated three-dimensional map
@@ -70,7 +71,7 @@ bm <- buildMap(out, opt.index=5); bm
 ####################
 
 #Constructing linkage map using approx method
-out2 <- netmap(cvicol, method="approx", cross.typ= "inbred", vis= FALSE, ncores=1); out2
+out2 <- netmap(cvicol, method="approx", cross= "inbred", vis= FALSE, ncores=1); out2
 #Estimated linkage map
 map2 <- out2$map; map2
 #Plot the associated 3-dimensional map
@@ -81,7 +82,7 @@ plot(out2$allres)
 bm2 <- buildMap(out2, opt.index=5); bm2
 
 #Constructing linkage map using npn method
-out3 <- netmap(cvicol, method="npn", cross.typ= "inbred", vis= FALSE, ncores=1); out2
+out3 <- netmap(cvicol, method="npn", cross= "inbred", vis= FALSE, ncores=1); out2
 #Estimated linkage map
 map3 <- out3$map; map3
 #Plot the associated 3-dimensional map

@@ -15,11 +15,15 @@ initialize = function(y, rho = NULL, n_rho = NULL, rho_ratio = NULL, ncores=NULL
 	{
 		if(is.null(n_rho)) n_rho = 10
 		if(is.null(rho_ratio)) rho_ratio = 0.3
-		cr = cor(y, method="spearman",  use= "pairwise.complete.obs")
-		is.na(cr) <- 0
-		diag(cr) <- 0
-		cr[cr > 0.6] <- 0
+		cr = cor(y, method="spearman") - diag(p)
+		cr[is.na(cr)] <- 0
 		rho_max = max( max(cr),-min(cr) )
+		if(rho_max == 0) 
+		{
+			ty <- npn(y, npn.func= "shrinkage")
+			cr = cor(ty, method="spearman") - diag(p)
+			rho_max = max(max(cr),-min(cr))
+		}
 		if(rho_max >= .7) rho_max = .7
 		rho_min = rho_ratio * rho_max
 		rho = exp(seq(log(rho_max), log(rho_min), length = n_rho))

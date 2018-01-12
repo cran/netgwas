@@ -8,20 +8,23 @@
 #-------------------------------------------------------------------------------#
 buildMap.internal = function( network, cross, num.iso.m, use.comu )
 {
+	id <- colnames(network)
 	p <- ncol(network)
 	D <- diag(network)
 	network[upper.tri(network)] <- 0
 	network <- network + t(network)
 	diag(network) <- D
+	colnames(network) <- id
 	
 	# LG
 	if(is.null(num.iso.m)) num.iso.m = floor(p/100)
-	theta <- No.trans(as.matrix(network))
-	memberships		<- community(theta, use.comu)
+	if( num.iso.m == 0 ) num.iso.m <- 1
+	if(cross == "inbred")theta <- No.trans(as.matrix(network)) else theta <- as.matrix(network)
+	memberships		<- community(theta, use.comu) 
 	singl.elem <- which(lapply(memberships, function(Y) length(Y) ) <= num.iso.m)
 	if(length(singl.elem) != 0) memberships <- memberships[- singl.elem ]
 	rm(singl.elem)
-		
+
 	#ordering
 	if(cross == "inbred")
 	{
@@ -55,10 +58,12 @@ buildMap.internal = function( network, cross, num.iso.m, use.comu )
 		LG <- vector("list", length(memberships) )
 		for(lg in 1: length(memberships))
 			{
-				index <- match( memberships[[lg]],colnames(network))
+				index <- match( memberships[[lg]], id)
 				th.LG <- network[index ,index]
 				rownames(th.LG) <- colnames(th.LG)
 				adj <- as.matrix(abs(sign(th.LG)) - diag(ncol(th.LG)))
+				if(length(unique(adj[upper.tri(adj)])) == 1) adj[1,2] <- adj[2,1] <- 0  #full graph
+			
 				adj <- graphAM(adj)
 				cuthill <- cuthill.mckee.ordering(adj)
 				ord[[lg]] <- cuthill$`reverse cuthill.mckee.ordering`
@@ -71,21 +76,30 @@ buildMap.internal = function( network, cross, num.iso.m, use.comu )
 	return(map)
 }
 
-buildMap = function(res, opt.index, num.iso.m = NULL, use.comu = FALSE){
+
+buildMap = function(res, opt.index, min.m = NULL, use.comu = FALSE){
 	
 	if(class(res) == "netgwasmap") 
 	{
 		if( is.null(opt.index)) stop("opt.index needs to be specified! \n")
 		if( is.null(use.comu)) use.comu <- FALSE
 		p <- ncol(res$allres$Theta[[opt.index]])
-		if(is.null(num.iso.m)) num.iso.m = p/100
+		if(is.null(min.m)) min.m = floor(p/100)
+		if( min.m == 0 ) min.m <- 3
 		cross <- res$cross.typ
 		
-		theta <- No.trans(as.matrix(res$allres$Theta[[opt.index]]))
+		if(cross == "inbred") theta <- No.trans(as.matrix(res$allres$Theta[[opt.index]])) else theta <- as.matrix(res$allres$Theta[[opt.index]])
+		D <- diag(theta)
+		id <- colnames(theta)
+		theta[upper.tri(theta)] <- 0
+		theta <- theta + t(theta)
+		diag(theta) <- D
+		colnames(theta) <- id 
 		memberships		<- community(theta, use.comu)
-		singl.elem <- which(lapply(memberships, function(Y) length(Y) ) <= num.iso.m)
+		singl.elem <- which(lapply(memberships, function(Y) length(Y) ) <= min.m)
 		if(length(singl.elem) != 0) memberships <- memberships[- singl.elem ]
-		
+		rm(D, id)	
+	
 		if(cross == "inbred")
 		{
 			cond.cor <- matrix(NA, ncol=p, nrow=p)
@@ -111,7 +125,7 @@ buildMap = function(res, opt.index, num.iso.m = NULL, use.comu = FALSE){
 		if(cross == "outbred")
 		{
 			ord <- vector("list", length(memberships) )
-			th.map <- vector("list", length(memberships) )
+			th.map <- vector("list", length(memberships))
 			LG <- vector("list", length(memberships) )
 			for(lg in 1: length(memberships))
 			{
@@ -119,6 +133,7 @@ buildMap = function(res, opt.index, num.iso.m = NULL, use.comu = FALSE){
 				th.LG <- theta[index ,index]
 				rownames(th.LG) <- colnames(th.LG)
 				adj <- as.matrix(abs(sign(th.LG)) - diag(ncol(th.LG)))
+				if(length(unique(adj[upper.tri(adj)])) == 1) adj[1,2] <- adj[2,1] <- 0
 				adj <- graphAM(adj)
 				cuthill <- cuthill.mckee.ordering(adj)
 				ord[[lg]] <- cuthill$`reverse cuthill.mckee.ordering`
@@ -126,9 +141,12 @@ buildMap = function(res, opt.index, num.iso.m = NULL, use.comu = FALSE){
 				th.map[[lg]]  <- th.LG[ind, ind]
 				LG[[lg]] <- rep(lg, length(ind))
 			}
-			map <- cbind(markers= unlist(ord), LG=unlist(LG))
+			map <- cbind(markers= unlist(ord), LG= unlist(LG))
 		}
-		return(map)
+		results <- list(map= map, opt.index= opt.index, cross= cross, allres= res$allres)
+		class(results$allres) = "netgwas"
+		class(results) = "netgwasmap"
+		return(results)
 	}else{
 		stop("netgwasmap.object should belong to the netgwasmap class. \n ")
 	}
@@ -173,15 +191,11 @@ community = function(theta, use.comu){
 MDS.order <- function( LG=3, cr, theta, memberships )
 {
   index <- match(memberships[[LG]],colnames(cr))
-  cr.LG <- cr[index ,index ]
+  cr.LG <- cr[index ,index]
   theta.LG <- theta[index ,index]
   rownames(cr.LG) <- colnames(cr.LG)
   rownames(theta.LG) <- colnames(theta.LG)
-  for(i in 1:ncol(cr.LG)){
-    for(j in 1:ncol(cr.LG)){
-      if(cr.LG[i,j] <= 0 )  cr.LG[i,j] <- runif(1, 0.00000001, 0.00000005)
-    }
-  }  
+  cr.LG[cr.LG <= 0] <- runif(1, 1e-08, 5e-08)
   dis		<- -log(cr.LG)
   dis.1	<- sammon(dis, k = 1, trace =FALSE)
   MDS.path <- order(dis.1$points)

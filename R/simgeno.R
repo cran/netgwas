@@ -7,7 +7,7 @@
 # Version: 0.0.1-1                                                      #
 #-----------------------------------------------------------------------#
 
-simgeno = function( p = 90, n = 200, k = NULL, g = NULL, adjacent = NULL, alpha = NULL, beta = NULL, con.dist = "Mnorm", d = NULL, vis = FALSE)
+simgeno = function( p = 90, n = 200, k = NULL, g = NULL, adjacent = NULL, alpha = NULL, beta = NULL, con.dist = "Mnorm", d = NULL, vis = TRUE)
 {
 
   if(is.null(k)) k = 3
@@ -99,11 +99,16 @@ simgeno = function( p = 90, n = 200, k = NULL, g = NULL, adjacent = NULL, alpha 
 		if ( p < 50 ) label = colnames(A) else label = NA 
 		if ( p < 50 ) size = 15 else size = 7
 		color         <-  terrain.colors(g)
-		Figuers[1] = plot(adj, layout = layout.circle, vertex.color = color[g.ind], vertex.size =size, vertex.label = label, vertex.label.color = 'black', vertex.label.dist=0, main = "Graph structure")
-		Figuers[2] = image(A, col = gray.colors(2, start=1, end=0),  main = "Adjacency Matrix") 
+		ly <- layout_with_fr(adj)
+		Figuers[1] = plot(adj, layout = ly , vertex.color = color[g.ind], vertex.size =size, vertex.label = label, vertex.label.color = 'black', vertex.label.dist=0, main = "Graph structure")
+		Figuers[2] = image(A, col = gray.colors(2, start=1, end=0), xaxt="n", yaxt='n', main = "Adjacency Matrix")
+		title(ylab = "markers", cex.lab = 1, line = .5)
+		title(xlab = "markers", cex.lab = 1, line = .5)
+		box()
 		rm(Figuers)
 		gc()
     }
+	z <- z - 1
 	simulation <- list( data=z, Theta=theta, adj=Matrix(A, sparse=TRUE), Sigma=sigma, n.groups=g, groups=g.ind, sparsity= sum(A)/(p*(p-1)))
   
 	class(simulation) = "simgeno"
@@ -124,7 +129,10 @@ plot.simgeno = function(x, layout = layout.fruchterman.reingold, ...){
 	plot(g, layout=layout, vertex.color=color[x$groups], vertex.size = size, vertex.label = NA,  vertex.label.dist=0, main = "Graph structure")
 	
 	
-	image(as.matrix(x$adj), col = gray.colors(2, start=1, end=0),  main = "Adjacency matrix")
+	image(as.matrix(x$adj), col = gray.colors(2, start=1, end=0), xaxt="n", yaxt="n", main = "Adjacency matrix")
+	title(ylab = "markers", cex.lab = 1, line = .5)
+	title(xlab = "markers", cex.lab = 1, line = .5)
+	box()
 	image(as.matrix(x$Theta), col = gray.colors(300), main = "Precision matrix")
 	image(as.matrix(x$Sigma), col = gray.colors(300), main = "Covariance matrix")
 	

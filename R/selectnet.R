@@ -49,7 +49,7 @@ readkey <- function()
 # Author: Pariya Behrouzi                             #
 # Email: <pariya.Behrouzi@gmail.com>                  #
 #-----------------------------------------------------#
-plot.select = function(x, vis= NULL, xlab= NULL, ylab= NULL, n.var = NULL, vertex.label = FALSE, ..., layout = NULL, label.vertex = "all", vertex.size = NULL, vertex.color = "red" , edge.color = "gray29",  sel.label = NULL)
+plot.select = function(x, vis= NULL, xlab= NULL, ylab= NULL, n.var = NULL, vertex.label = FALSE, ..., layout = NULL, label.vertex = "all", vertex.size = NULL, vertex.color = "red" , edge.color = "gray29",  sel.label = NULL, label.size = NULL)
 {
 	if(class(x) != "select") stop("The input of this plot function should be from \"select\" class (More info in: selectnet( ) ). \n")
 	if(is.null(vis)) vis <-  "CI"
@@ -110,7 +110,8 @@ plot.select = function(x, vis= NULL, xlab= NULL, ylab= NULL, n.var = NULL, verte
 		p <- ncol(adj)
 		A <- graph.adjacency(adj, mode= "undirected")
 		if(is.null(layout)) layout <- layout_with_fr(A)
-		V(A)$label.cex <- 1
+		if(is.null(label.size)) label.size <- 1
+		V(A)$label.cex <- label.size
 	 
 		if(label.vertex == "none")
 		{

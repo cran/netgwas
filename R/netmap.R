@@ -7,19 +7,18 @@
 # Version: 0.0.1-1                                                              #
 #-------------------------------------------------------------------------------#
 
-netmap = function(data, method = "gibbs", rho = NULL, n.rho = NULL, rho.ratio = NULL, cross.typ=c("inbred", "outbred"), iso.m= NULL, use.comu= FALSE, ncores = "all", em.iter = 5, verbose = TRUE) 
+netmap = function(data, method = "npn", rho = NULL, n.rho = NULL, rho.ratio = NULL, cross= NULL, min.m= NULL, use.comu= FALSE, ncores = "all", em.iter = 5, verbose = TRUE) 
 {
-	if(is.null(cross.typ)) stop("Please fill \"inbred\" or \"outbred\" as a cross-type! \n")
+	if(is.null(cross)) stop("Please fill in the argument cross as \"inbred\" or \"outbred\" \n")
 	if(!is.matrix(data)) data <- as.matrix(data)
 	if(ncores == "all") ncores <- detectCores() - 1
 	if(is.null(em.iter)) em.iter = 5
 	em.tol = 0.001
 	
-	
-	n = nrow(data)
-	p = ncol(data)
 	result = list()
 	data <- cleaning.dat(data)
+	p = ncol(data)
+	n = nrow(data)
 	
 if( method == "gibbs" ||  method== "approx" ) 
 {
@@ -27,8 +26,10 @@ if( method == "gibbs" ||  method== "approx" )
 	{
 		if((is.null(rho)) && (is.null(n.rho)) ) n.rho = 6
 		if(! is.null(rho)) n.rho  = length(rho)
-		if(is.null(rho.ratio)) rho.ratio = 0.45
-		
+		if(is.null(rho.ratio)) 
+		{
+			if(p >= 2000) rho.ratio = 0.5 else rho.ratio = 0.45
+		}
 		est = vector("list", n.rho)
 		for(chain in 1 : n.rho ) 
 		{
@@ -60,7 +61,10 @@ if( method == "gibbs" ||  method== "approx" )
 
 		if( !is.null(rho) ) n.rho = length(rho) 
 		if( is.null(n.rho) ) n.rho = 6
-		if(is.null(rho.ratio)) rho.ratio = 0.65
+		if(is.null(rho.ratio)) 
+		{
+			if(p >= 2000) rho.ratio = 0.7 else rho.ratio = 0.65
+		}
 		
 		ini = initialize(data, rho = rho, n_rho = n.rho, rho_ratio = rho.ratio, ncores=ncores )
 		rho = ini$rho
@@ -118,9 +122,24 @@ if( method == "gibbs" ||  method== "approx" )
 		}
 		if((is.null(rho)) && (is.null(n.rho)) ) n.rho = 6
 		if(! is.null(rho)) n.rho  = length(rho)
-		if(is.null(rho.ratio)) rho.ratio = 0.45	
+		if(is.null(rho.ratio)) 
+		{
+			rho.ratio = 0.5
+		}
 		if( any(is.na(data)) ) npn.func = "shrinkage" else npn.func = "skeptic"
-		tdata <- npn(data, npn.func= npn.func)		
+		tdata <- npn(data, npn.func= npn.func)
+		if(is.null(rho))
+		{
+			cr = cor(tdata, method = "spearman") - diag(p)
+			cr[is.na(cr)] <- 0
+			rho_max = max(max(cr),-min(cr))
+			if(( p <= 100) &&(rho_max >= .7)) rho_max = .8 
+			if(( p > 100) && (rho_max >= .7)) rho_max = .7 
+			rho_min = rho.ratio * rho_max
+			rho = exp(seq(log(rho_max), log(rho_min), length = n.rho))
+			rm(cr, rho_max, rho_min, rho.ratio)
+		}
+		
 		est <- huge(tdata, lambda= rho, nlambda=n.rho, lambda.min.ratio=rho.ratio, method="glasso", verbose=FALSE)
 			
 		result$Theta  = est$icov
@@ -139,10 +158,10 @@ if( method == "gibbs" ||  method== "approx" )
 	if(is.null(use.comu)) use.comu <- FALSE
 	sel.net <- selectnet(result, criteria = "ebic", ebic.gamma = 0.5, ncores = ncores, verbose=FALSE)
 	if(method == "npn") colnames(sel.net$opt.theta) <- colnames(result$data)
-	map <- buildMap.internal(sel.net$opt.theta, cross= cross.typ, num.iso.m= iso.m, use.comu=use.comu)
+	map <- buildMap.internal(network= sel.net$opt.theta, cross= cross, num.iso.m= min.m, use.comu= use.comu)
 
 	result$data <- result$data[ , c(as.character(map[,1]))]
-	results <- list( map= map, opt.index= sel.net$opt.index, cross.typ=cross.typ, allres=result)
+	results <- list( map= map, opt.index= sel.net$opt.index, cross.typ= cross, allres= result)
 	class(results$allres) = "netgwas"
 	class(results) = "netgwasmap"
 	rm(result)
@@ -154,35 +173,73 @@ if( method == "gibbs" ||  method== "approx" )
 #-----------------------------------------------------#
 #   		Plot for class "netgwasmap"      	      #
 #-----------------------------------------------------#
-plot.netgwasmap = function( x, layout=NULL, vertex.size=NULL, vertex.label= NULL, label.size= NULL, vertex.color=NULL, ...)
+plot.netgwasmap = function(x, vis= NULL, layout= NULL, vertex.size= NULL, label.vertex = "none", label.size= NULL, vertex.color= NULL, edge.color = "gray29", sel.ID = NULL, ...)
 {
 	if(class(x) != "netgwasmap") stop("netgwas.object should belong to the netgwas class. \n ")
-	if(is.null( vertex.color))  vertex.color <- "red"
-	if(is.null( label.size)) label.size <- 0.8
-	if(is.null( vertex.size)) vertex.size <- 5
-	if(is.null( vertex.label)) vertex.label <- FALSE
+	if(is.null(vis)) vis <- "summary"
+	if(is.null(label.vertex)) label.vertex <- "none"
+	if(vis == "summary")
+	{
+		if(is.null( vertex.color))  vertex.color <- "red"
+		if(is.null( label.size)) label.size <- 0.8
+		if(is.null( vertex.size)) vertex.size <- 5
+		if(label.vertex == "none") vertex.label <- NA
 
-	opt.theta <- as.matrix(x$allres$Theta[[x$opt.index]]) 
-	p <- ncol(opt.theta)
-	path <-  as.matrix(abs(sign(opt.theta)) - diag(rep(1,p)))
-	adj <- graph.adjacency(path, mode="undirected")
-	adj$label.cex <- label.size
-	if(vertex.label == TRUE) {vertex.label <- colnames(opt.theta)}else{vertex.label <- NA}
-	if(is.null(layout)) layout <- layout.fruchterman.reingold
+		opt.theta <- as.matrix(x$allres$Theta[[x$opt.index]]) 
+		p <- ncol(opt.theta)
+		path <-  as.matrix(abs(sign(opt.theta)) - diag(rep(1,p)))
+		adj <- graph.adjacency(path, mode="undirected")
+		adj$label.cex <- label.size
+		if(label.vertex == "all") vertex.label <- colnames(opt.theta) #else{vertex.label <- NA}
+		if(is.null(layout)) layout <- layout.fruchterman.reingold
 
-	split.screen( figs = c( 1, 2 ) )
-	split.screen( figs = c( 1, 1 ), screen = 1 )
-	split.screen( figs = c( 2, 1 ), screen = 2 )
-	screen(1)
-	plot(adj, layout=layout, edge.curved = F, vertex.label= vertex.label, vertex.color=vertex.color, edge.color="gray40", vertex.size=vertex.size, vertex.label.dist=0, vertex.label.color="darkblue", main="Three-dimensional map")
-	screen(4)
-	image(path, col = gray.colors(256), xlab= "markers", ylab="markers" ,main= "Conditional dependence relationships \nbefore ordering", cex.main=.8, cex.lab=.8, cex.axis=.8)
+		split.screen( figs = c( 1, 2 ) )
+		split.screen( figs = c( 1, 1 ), screen = 1 )
+		split.screen( figs = c( 2, 1 ), screen = 2 )
+		screen(1)
+		plot(adj, layout=layout, edge.curved = F, vertex.label= vertex.label, vertex.color=vertex.color, edge.color="gray40", vertex.size=vertex.size, vertex.label.dist=0, vertex.label.color="darkblue", main="Three-dimensional map")
+		screen(4)
+		image(path, col = gray.colors(256), xlab= "markers", ylab="markers" ,main= "Conditional dependence relationships \nbefore ordering", cex.main=.8, cex.lab=.8, cex.axis=.8)
 
-	index <- as.character(x$map[ ,1])
-	rownames(path) <- colnames(path)
-	path.After <- path[c(index), c(index)] 
-	screen(5)
-	image(path.After, col = gray.colors(256), xlab= "markers", ylab="markers" ,main="Conditional dependence relationships \nafter ordering", cex.main=0.8, cex.lab=.8, cex.axis=.8)
+		index <- as.character(x$map[ ,1])
+		rownames(path) <- colnames(path)
+		path.After <- path[c(index), c(index)] 
+		screen(5)
+		image(path.After, col = gray.colors(256), xlab= "markers", ylab="markers" ,main="Conditional dependence relationships \nafter ordering", cex.main=0.8, cex.lab=.8, cex.axis=.8)
+	}
+	if(vis == "interactive")
+	{
+		 adj <- as.matrix(x$allres$path[[x$opt.index]])
+		  
+		  if(is.null(vertex.size)) vertex.size <- 5
+		  if(is.null(vertex.color)) vertex.color <- "red"
+		  if(is.null(edge.color)) edge.color <- "gray29"
+		  if(is.null(sel.ID)) sel.ID <- NULL
+		  if((label.vertex == "some") && (is.null(sel.ID )) ) stop("Please select some vertex label(s) or fix label.vertex to either none or all.")
+
+		  p <- ncol(adj)
+		  A <- graph.adjacency(adj, mode= "undirected")
+		  if(is.null(layout)) layout <- layout_with_fr(A)
+		  #if(is.null(layout)) layout <- layout_with_kk(A, maxiter = 50 * p )
+		  V(A)$label.cex <- 1
+	 
+		  if(label.vertex == "none")
+		{
+			V(A)$label <- NA
+			tkplot(A, layout=layout, vertex.color=vertex.color, edge.color=edge.color, vertex.size=vertex.size, vertex.label.dist=0)  
+		}
+
+		  if(label.vertex == "some") 
+		{
+			V(A)$label <- colnames(adj)
+			tkplot(A, vertex.label=ifelse(V(A)$label %in% sel.ID, V(A)$label, NA ), layout=layout, vertex.color=vertex.color, edge.color=edge.color, vertex.size=vertex.size, vertex.label.dist=0)
+		}
+		 if(label.vertex == "all") 
+		{	
+			V(A)$label <- colnames(adj)
+			tkplot(A, vertex.label=colnames(adj) , layout=layout, vertex.color=vertex.color, edge.color=edge.color, vertex.size=vertex.size, vertex.label.dist=0)  
+		}	
+	}
 }
 
 #-----------------------------------------------------#
