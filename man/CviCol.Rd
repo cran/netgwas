@@ -17,6 +17,7 @@ This data set can be used to detect epistatic selection, short- and long- range 
 }
 
 \source{
+Simon, M., et al. "QTL mapping in five new large RIL populations of Arabidopsis thaliana genotyped with consensus SNP markers." Genetics 178 (2008): 2253-2264.
 It is publicly available at http://publiclines.versailles.inra.fr/page/8
 }
 
@@ -25,11 +26,6 @@ It is publicly available at http://publiclines.versailles.inra.fr/page/8
   Maintainer: Pariya Behrouzi \email{pariya.behrouzi@gmail.com}\cr
 }
 
-\references{
-1. Behrouzi, P., and Wit, E. C. (2017c). netgwas: An R Package for Network-Based Genome-Wide Association Studies. arXiv preprint, arXiv:1710.01236. \cr
-2. Behrouzi, P., and Wit, E. C. (2017a). Detecting Epistatic Selection with Partially Observed Genotype Data Using Copula Graphical Models. arXiv preprint, arXiv:1710.00894. \cr
-3. Simon, M., et al. "QTL mapping in five new large RIL populations of Arabidopsis thaliana genotyped with consensus SNP markers." Genetics 178 (2008): 2253-2264.
-}
 
 \examples{
 data(CviCol)

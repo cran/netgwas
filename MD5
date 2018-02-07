@@ -1,4 +1,4 @@
-ce13a953350a00e9681514fd13d3fae2 *DESCRIPTION
+6528d83348309e23ca781defbe5ac510 *DESCRIPTION
 fd5f8e8dec6043d11db70b394bfaef5f *NAMESPACE
 cbf0976a3ae75df81cbe7cc10d45281e *R/Gibbs_method.R
 5992dae872e70c4679c1d03aa700a81b *R/R.approx.R
@@ -13,7 +13,7 @@ be72ce9b6aa0ad41556f1b2ed9f9def2 *R/element_S.R
 ba885fb883d79f343983dda1f1104219 *R/initialize.R
 dde0528535b8c64ee785b053f633d633 *R/lower.upper.R
 5de1b1aa547355b083671dcb1d1de0bf *R/model.selection.R
-53d42ce78a4d9cbff9c9aac6288c1963 *R/netmap.R
+a741027193374da7f383fe9d1adcc65b *R/netmap.R
 bddfa31c7d094be573f6891c2413e369 *R/netphenogeno.R
 19bd3f12ac3afa7126cb316071e70d22 *R/netsnp.R
 6ec2a6f3a88e7d769f3203ae46b6fa5e *R/npn.R
@@ -22,13 +22,17 @@ b9f7a55fbce3d3b504a1f92ab67c315b *R/selectnet.R
 3b8f5df9a11af7348ad48f70aa47b912 *R/simRIL.R
 f6b9153576872f94a3cd8a4acafe635f *R/simgeno.R
 73d9ee937fa9bceebde6ec64572cd68d *data/CviCol.RData
+217b841be389b505ffe29ed24e0ee30b *data/bp.RData
+a082c5baf54bc79b22125f1023b08af6 *data/hdl.RData
 5ce00a473165562b1de5c36ed93b589d *data/tetraPotato.RData
 158c6f26a5c0a93c3e66c5d59731390b *data/thaliana.RData
-69c8b82df40a97269ef3f616a3cd59dd *man/CviCol.Rd
+4cc5b996aa6c44d3971a20f6420726a2 *man/CviCol.Rd
 3f539b42fd78c9d1e9f3e8e98d30a414 *man/R.approx.Rd
 2202ad7212d158feee7daddcd3421b18 *man/R.gibbs.Rd
+4caf728166293afed4d2e8c344ab5332 *man/bp.Rd
 a799e2b2d00f7b005046e7cc587c8df6 *man/buildMap.Rd
 fe4371aef454fb861b1ee0596446a16c *man/cutoffs.Rd
+63cb03e9ad5ccff38118974001b881c7 *man/hdl.Rd
 2e8b7cc2c7f3b60996c6ac9e9b8f7b8d *man/lower.upper.Rd
 8e3c91def740496dc70b79401718b4ac *man/netgwas-internal.Rd
 70ec87d252f9940dddcad440df4e080a *man/netgwas-package.Rd
@@ -46,5 +50,5 @@ a34a240d45af2038c08f084816f2c681 *man/print.select.Rd
 f5beaf0689a9f137925d2abe1e41a47d *man/selectnet.Rd
 4674773aeeed3d5f4dbed0137c28a03a *man/simGeno.Rd
 46eacde1d6aec8109b38c04d8413ed1d *man/simRIL.Rd
-45e3b0e935e24be7b1adb4b385ca4f32 *man/tetraPotato.Rd
-54a31672e6390d09bcd8bd7aec209d52 *man/thaliana.Rd
+7cd786b808b99d0f4cb358ab5e93765a *man/tetraPotato.Rd
+b8b3ea5660d5f6f3526dfe6fd56d6b69 *man/thaliana.Rd

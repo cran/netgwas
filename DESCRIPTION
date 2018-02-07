@@ -1,7 +1,7 @@
 Package: netgwas
 Type: Package
 Title: Network-Based Genome Wide Association Studies
-Version: 0.1.2.0
+Version: 0.1.3.0
 Author: Pariya Behrouzi and Ernst C. Wit
 Maintainer: Pariya Behrouzi <pariya.behrouzi@gmail.com>
 Depends: R (>= 3.1.0), Matrix, igraph, parallel
@@ -10,6 +10,6 @@ Description: A multi-core R package that contains a set of tools based on undire
 License: GPL-3
 Date: 2018-01-07
 NeedsCompilation: no
-Packaged: 2018-01-12 15:21:47 UTC; Pariya
+Packaged: 2018-02-07 13:40:52 UTC; Pariya
 Repository: CRAN
-Date/Publication: 2018-01-12 15:31:24 UTC
+Date/Publication: 2018-02-07 14:02:29 UTC

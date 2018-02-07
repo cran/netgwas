@@ -252,8 +252,8 @@ print.netgwasmap = function(x, ...){
 	cat("Number of sample size: n =", nrow(x$allres$data), "\n")
 	cat("Number of categories in data:", length(unique(sort(as.matrix(x$allres$data))))," (" , unique(sort(as.matrix(x$allres$data))), ")", "\n")
 	cat("The estimated linkage map is inserted in <YOUR OUTPUT NAME>$map \n")
-	cat("To visualize the associated 3-dimensional map consider plot(<YOUR OUTPUT NAME>) \n")
+	cat("To visualize the associated network consider plot(<YOUR OUTPUT NAME>) \n")
 	cat("----------------------- \n")
-	cat("To visualize the other possible 3-dimensional maps consider plot(<YOUR OUTPUT NAME>$allres) \n")
-	cat("To build a linkage map for your desired 3-dimensional map consider builMap() function \n")
+	cat("To visualize the other associated networks consider plot(<YOUR OUTPUT NAME>$allres) \n")
+	cat("To build a linkage map for your desired network consider builMap() function \n")
 }

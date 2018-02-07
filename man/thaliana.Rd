@@ -23,17 +23,7 @@ This data set can be used to reconstruct network among SNP markers and the measu
 }
 
 \source{
-It is publicly available at http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0004318
-}
-
-\author{ 
-  Pariya Behrouzi and Ernst C. Wit \cr
-  Maintainer: Pariya Behrouzi \email{pariya.behrouzi@gmail.com}\cr
-}
-
-\references{
-1. Behrouzi, P., and Wit, E. C. (2017c). netgwas: An R Package for Network-Based Genome-Wide Association Studies. arXiv preprint, arXiv:1710.01236.
-2. Balasubramanian, Sureshkumar, et al. (2009). "QTL mapping in new Arabidopsis thaliana advanced intercross-recombinant inbred lines." PLoS One 4.2: e4318.
+Balasubramanian, Sureshkumar, et al. (2009). "QTL mapping in new Arabidopsis thaliana advanced intercross-recombinant inbred lines." PLoS One 4.2: e4318.
 }
 
 \examples{
@@ -45,7 +35,7 @@ out <- netphenogeno(thaliana, ncores=1)
 plot(out)
 
 sel <- selectnet(out)
-plot(sel)
+plot(sel, vis= "interactive")
 }
 }
 
