@@ -26,7 +26,7 @@ This function determines linkage groups and order markers within each linkage gr
 An object with S3 class \code{"netgwasmap"} is returned:  
  \item{map}{ Constructed linkage map associated with \code{opt.index}.}
  \item{opt.index}{ The index of a desired 3-D map to construct linkage map.}
- \item{cross.typ}{The specified cross type by user. }
+ \item{cross}{The specified cross type by user. }
  \item{allres}{ A list containing results for different regularization parameter. Belongs to class "netgwas". To visualize a path of different 3D maps consider function \code{\link{plot.netgwas}}. Note that the input data is reordered based on the estimated linkage map and is saved as data in this argument.}
 }
 
@@ -49,7 +49,7 @@ data(CviCol)
 cvicol <- CviCol[ ,sample(1:ncol(CviCol), ncol(CviCol), replace=FALSE)]
 
 #Constructing linkage map for Cvi x Col genotype data
-out <- netmap(cvicol, cross= "inbred", vis= FALSE, ncores=1); out
+out <- netmap(cvicol, cross= "inbred", ncores=1); out
 plot(out)
 map <- out$map; map
 

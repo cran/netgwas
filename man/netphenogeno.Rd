@@ -8,13 +8,13 @@ This is one of the main functions of the \pkg{netgwas} package. This function re
 }
 
 \usage{
-netphenogeno(data, method = "gibbs", rho = NULL, n.rho = NULL, rho.ratio = NULL,
+netphenogeno(data, method = "npn", rho = NULL, n.rho = NULL, rho.ratio = NULL,
 		ncores = "all", em.iter = 5, em.tol=.001, verbose = TRUE)
 }
 
 \arguments{
 	\item{data}{ An (\eqn{n \times p}) matrix or a \code{data.frame} corresponding to the data matrix (\eqn{n} is the sample size and \eqn{p} is the number of variables). The \eqn{p} columns include either a marker or trait(s) information. Input data can contain missing values.}
-	\item{method}{Reconstructing both genotype-phenotype interactions network and genotype-phenotype-environment interactions network with three methods: "gibbs", "approx", and "npn". For a medium (~500) and a large number of variables we recommend to choose "gibbs" and "approx", respectively. Choosing "npn" for a very large number of variables (> 2000) is computationally efficient. The default method is "gibbs".}
+	\item{method}{Reconstructing both genotype-phenotype interactions network and genotype-phenotype-environment interactions network with three methods: "gibbs", "approx", and "npn". For a medium (~500) and a large number of variables we recommend to choose "gibbs" and "approx", respectively. Choosing "npn" for a very large number of variables (> 2000) is computationally efficient. The default method is "npn".}
 	\item{rho}{ A decreasing sequence of non-negative numbers that control the sparsity level. Leaving the input as \code{rho = NULL}, the program automatically computes a sequence of \code{rho} based on \code{n.rho} and \code{rho.ratio}. Users can also supply a decreasing sequence values to override this.}
 	\item{n.rho}{ The number of regularization parameters. The default value is \code{10}.}
 	\item{rho.ratio}{ Determines distance between the elements of \code{rho} sequence. A small value of \code{rho.ratio} results in a large distance between the elements of \code{rho} sequence. And a large value of \code{rho.ratio} results into a small distance between elements of \code{rho}. The default value is \code{0.3}.}

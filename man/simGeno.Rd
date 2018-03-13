@@ -75,6 +75,6 @@ plot(sim2)
 		plot(out)
 		#Select an optimal graph
 		sel <- selectnet(out)
-		plot(sel, vis= "complete" )
+		plot(sel, vis= "CI" )
 	}
 }

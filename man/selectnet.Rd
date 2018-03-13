@@ -79,15 +79,12 @@ and anything else that is included in the input \code{netgwas.obj}.
 		plot(D)
 
 		#explore intra- and inter-chromosomal interactions
-		out  <-  netsnp(y=D$data, n.rho= 5, ncores= 1)
+		out  <-  netsnp(D$data, n.rho= 5, ncores= 1)
 		plot(out)
 
 		#different graph selection methods
 		sel.ebic1 <- selectnet(out, criteria = "ebic")
 		plot(sel.ebic1)
-
-		sel.ebic2 <- selectnet(out, criteria = "ebic", loglik = TRUE)
-		plot(sel.ebic2)
 
 		sel.aic <- selectnet(out, criteria = "aic")
 		plot(sel.aic)

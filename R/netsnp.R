@@ -7,7 +7,7 @@
 # Version: 0.0.1-1                                                                        #
 #-----------------------------------------------------------------------------------------#
 
-netsnp = function(data, method = "gibbs", rho = NULL, n.rho = NULL, rho.ratio = NULL, ncores = "all", em.iter = 5, em.tol = .001, verbose = TRUE) 
+netsnp = function(data, method = "npn", rho = NULL, n.rho = NULL, rho.ratio = NULL, ncores = "all", em.iter = 5, em.tol = .001, verbose = TRUE) 
 {
 	if(!is.matrix(data)) data <- as.matrix(data)
 	if(ncores == "all") ncores <- detectCores() - 1

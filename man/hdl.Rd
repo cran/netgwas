@@ -27,7 +27,7 @@ intercross." J Lipid Res., 6, 1163-75.
 \donttest{
 data(hdl)
 #Constructing genotype-phenotype networks in mice
-out <- netgenopheno(hdl)
+out <- netphenogeno(hdl)
 sel <- selectnet(out)
 plot(sel, vis= "CI", vertex.label = TRUE)
 }

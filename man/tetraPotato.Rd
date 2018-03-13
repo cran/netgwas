@@ -28,7 +28,7 @@ data(tetraPotato)
 #Shuffle the order of markers
 potato <- tetraPotato[ ,sample(1:ncol(tetraPotato), ncol(tetraPotato), replace=FALSE)] 
 #Constructing linkage map for tetraploid potato
-out <- netmap(potato, method="npn", cross.typ= "outbred"); out
+out <- netmap(potato, cross = "outbred"); out
 potato.map <- out$map; potato.map
 plot(out)
 }

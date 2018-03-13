@@ -162,6 +162,7 @@ if( method == "gibbs" ||  method== "approx" )
 
 	result$data <- result$data[ , c(as.character(map[,1]))]
 	results <- list( map= map, opt.index= sel.net$opt.index, cross.typ= cross, allres= result)
+	
 	class(results$allres) = "netgwas"
 	class(results) = "netgwasmap"
 	rm(result)

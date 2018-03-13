@@ -10,7 +10,7 @@ This is one of the main functions of \pkg{netgwas} package. This function recons
 \usage{
 netmap(data, method = "npn", rho = NULL, n.rho = NULL, rho.ratio = NULL, 
        cross= NULL, min.m= NULL, use.comu= FALSE,
-	   ncores = "all", em.iter = 5, verbose = TRUE)
+			ncores = "all", em.iter = 5, verbose = TRUE)
 }
 
 \arguments{
@@ -35,7 +35,7 @@ Constructing linkage maps for diploid and polyploid organisms. Diploid organisms
 An object with S3 class \code{"netgwasmap"} is returned:  
  \item{map}{Constructed linkage map.}
  \item{opt.index}{ The index of selected graph using model selection.}
- \item{cross.typ}{The pre-specified cross type. }
+ \item{cross}{The pre-specified cross type. }
  \item{allres}{ A list containing results for different regularization parameter. Belongs to class "netgwas". To visualize a path of different 3D maps consider function \code{\link{plot.netgwas}}. Note that the input data is reordered based on the estimated linkage map and is saved as data in this argument.}
 }
 
@@ -59,7 +59,7 @@ data(CviCol)
 cvicol <- CviCol[ ,sample(1:ncol(CviCol), ncol(CviCol), replace=FALSE)]
 
 #Constructing linkage map using gibbs method
-out <- netmap(cvicol, cross= "inbred", vis= FALSE, ncores=1); out
+out <- netmap(cvicol, cross= "inbred", ncores=1); out
 #Estimated linkage map
 map <- out$map; map
 #Plot the associated three-dimensional map
@@ -71,7 +71,7 @@ bm <- buildMap(out, opt.index=5); bm
 ####################
 
 #Constructing linkage map using approx method
-out2 <- netmap(cvicol, method="approx", cross= "inbred", vis= FALSE, ncores=1); out2
+out2 <- netmap(cvicol, method="approx", cross= "inbred", ncores=1); out2
 #Estimated linkage map
 map2 <- out2$map; map2
 #Plot the associated 3-dimensional map
@@ -82,7 +82,7 @@ plot(out2$allres)
 bm2 <- buildMap(out2, opt.index=5); bm2
 
 #Constructing linkage map using npn method
-out3 <- netmap(cvicol, method="npn", cross= "inbred", vis= FALSE, ncores=1); out2
+out3 <- netmap(cvicol, method="npn", cross= "inbred", ncores=1); out2
 #Estimated linkage map
 map3 <- out3$map; map3
 #Plot the associated 3-dimensional map

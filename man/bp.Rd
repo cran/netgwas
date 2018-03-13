@@ -24,7 +24,7 @@ Sugiyama, F., Churchill, G.A., Li, R., Libby, L.J., Carver, T., Yagami, K.I., Jo
 \donttest{
 data(bp)
 #Constructing genotype-phenotype networks in mice
-out <- netgenopheno(bp)
+out <- netphenogeno(bp)
 sel <- selectnet(out)
 plot(sel, vis= "interactive")
 }
