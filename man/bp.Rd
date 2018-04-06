@@ -9,7 +9,7 @@
 
 \usage{data(bp)}
 \format{
-  The format is a matrix containing 93 SNP markers across the genome, and four phenotypes: blood pressure (bp), heart rate (hr), body weight (bw), and heart weight (heart-wt), as measured for 163 individuals.
+  The format is a matrix containing 93 SNP markers across the genome, and 4 phenotypes: blood pressure (bp), heart rate (hr), body weight (bw), and heart weight (heart-wt), as measured for 163 individuals.
 }  
 
 \details{
@@ -26,7 +26,7 @@ data(bp)
 #Constructing genotype-phenotype networks in mice
 out <- netphenogeno(bp)
 sel <- selectnet(out)
-plot(sel, vis= "interactive")
+plot(sel, vis= "interactive", vertex.color = c(rep("red",4), rep( "white", 93) ))
 }
 }
 

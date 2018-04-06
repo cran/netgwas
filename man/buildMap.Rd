@@ -53,9 +53,9 @@ out <- netmap(cvicol, cross= "inbred", ncores=1); out
 plot(out)
 map <- out$map; map
 
-#Visualization of other three-dimensional maps
+#Visualization of other networks
 plot(out$allres)  
-#Constructing a linkage map for 5th three-dimensional map
+#Constructing a linkage map for 5th network
 bm <- buildMap(out, opt.index=5); bm
 plot(bm, vis= "summary")
 #or

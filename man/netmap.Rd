@@ -8,8 +8,8 @@ This is one of the main functions of \pkg{netgwas} package. This function recons
 }
 
 \usage{
-netmap(data, method = "npn", rho = NULL, n.rho = NULL, rho.ratio = NULL, 
-       cross= NULL, min.m= NULL, use.comu= FALSE,
+netmap(data, method = "npn", cross= NULL, rho = NULL, n.rho = NULL, 
+            rho.ratio = NULL, min.m= NULL, use.comu= FALSE,
 			ncores = "all", em.iter = 5, verbose = TRUE)
 }
 
@@ -62,11 +62,11 @@ cvicol <- CviCol[ ,sample(1:ncol(CviCol), ncol(CviCol), replace=FALSE)]
 out <- netmap(cvicol, cross= "inbred", ncores=1); out
 #Estimated linkage map
 map <- out$map; map
-#Plot the associated three-dimensional map
+#Plot the associated network
 plot(out)
-#Visualize other three-dimensional maps
+#Visualizing the path networks
 plot(out$allres)
-#Build a linkage map for 5th three-dimensional map
+#Build a linkage map for 5th networks
 bm <- buildMap(out, opt.index=5); bm
 ####################
 
@@ -74,19 +74,18 @@ bm <- buildMap(out, opt.index=5); bm
 out2 <- netmap(cvicol, method="approx", cross= "inbred", ncores=1); out2
 #Estimated linkage map
 map2 <- out2$map; map2
-#Plot the associated 3-dimensional map
+#Plot the related network
 plot(out2)
-#Visualize other three-dimensional maps
+#Visualize other networks
 plot(out2$allres)
-#Build a linkage map for 5th three-dimensional map
+#Build a linkage map for 5th network
 bm2 <- buildMap(out2, opt.index=5); bm2
 
 #Constructing linkage map using npn method
-out3 <- netmap(cvicol, method="npn", cross= "inbred", ncores=1); out2
+out3 <- netmap(cvicol, method="npn", cross= "inbred", ncores=1); out3
 #Estimated linkage map
 map3 <- out3$map; map3
-#Plot the associated 3-dimensional map
+#Plot the related network
 plot(out3)
 }
 }
-

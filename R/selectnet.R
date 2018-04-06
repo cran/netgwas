@@ -49,7 +49,7 @@ readkey <- function()
 # Author: Pariya Behrouzi                             #
 # Email: <pariya.Behrouzi@gmail.com>                  #
 #-----------------------------------------------------#
-plot.select = function(x, vis= NULL, xlab= NULL, ylab= NULL, n.var = NULL, vertex.label = FALSE, ..., layout = NULL, label.vertex = "all", vertex.size = NULL, vertex.color = "red" , edge.color = "gray29",  sel.label = NULL, label.size = NULL)
+plot.select = function(x, vis= NULL, xlab= NULL, ylab= NULL, n.mem = NULL, vertex.label = FALSE, ..., layout = NULL, label.vertex = "all", vertex.size = NULL, vertex.color = "red" , edge.color = "gray29", sel.label = NULL, label.size = NULL, w.btw= 800, w.within = 10)
 {
 	if(class(x) != "select") stop("The input of this plot function should be from \"select\" class (More info in: selectnet( ) ). \n")
 	if(is.null(vis)) vis <-  "CI"
@@ -69,32 +69,41 @@ plot.select = function(x, vis= NULL, xlab= NULL, ylab= NULL, n.var = NULL, verte
 		if(is.null(vertex.size)) vertex.size = 7
 		
 		adj = graph.adjacency(as.matrix(x$opt.adj), mode="undirected", diag=FALSE)
-		if(is.null(n.var)) 
+		if(is.null(n.mem)) 
 			{
 				memberships = 1
 				vertex.color = "red"
 		}else{
-		LG = length(n.var)
-		memberships = NULL
-		i = 1
-		while( i <= LG)
-			{
-				grp <- rep(i, n.var[i])
-				memberships = c(memberships, grp)
-				i = i + 1
-			}
+			LG = length(n.mem)
+			memberships = NULL
+			i = 1
+			while( i <= LG)
+				{
+					grp <- rep(i, n.mem[i])
+					memberships = c(memberships, grp)
+					i = i + 1
+				}
 			color <- sample(rainbow(max(memberships)+10, alpha=0.3), max(memberships))
 			vertex.color = color[memberships]
+			names(memberships) <- colnames(x$opt.adj) #membership network 
+			E(adj)$weight=apply(get.edgelist(adj), 1, weight.community,memberships, w.btw, w.within)#membership network 
 		}
-		adj$layout	= layout.fruchterman.reingold 
 		
-		plot(adj, vertex.color= vertex.color , edge.color='gray40', vertex.size = vertex.size, vertex.label = vertex.label, vertex.label.dist = 0, main= "Selected graph")	 	  
-		if(length(memberships) > 1) legend("bottomright", paste("group", 1:length(n.var)), cex=0.7, col= color, pch=rep(20,10))
+		if(is.null(n.mem)){
+			layout	= layout.fruchterman.reingold 
+		}else{
+			layout = layout.fruchterman.reingold(adj, weights=E(adj)$weight) #membership network 
+		}
+		
+		plot(adj, layout= layout, vertex.color= vertex.color , edge.color='gray40', vertex.size = vertex.size, vertex.label = vertex.label, vertex.label.dist = 0, main= "Selected graph")	 	  
+		if(length(memberships) > 1) legend("bottomright", paste("group", 1:length(n.mem)), cex=0.7, col= color, pch=rep(20,10))
 		readkey()
 		
 		if(is.null(xlab)) xlab <- ""
 		if(is.null(ylab)) ylab <- ""
-		image(as.matrix(x$opt.adj), xlab= xlab, ylab= ylab, col = gray.colors(256) ,main="Conditional dependence relationships" , cex=0.8) 
+		image(as.matrix(x$opt.adj), xaxt="n", yaxt="n", col = gray.colors(256) ,main="Conditional dependence relationships" , cex=0.8) 
+		title(ylab = ylab, cex.lab = 1, line = .5)
+		title(xlab = xlab, cex.lab = 1, line = .5)
 	}	
 	
 	if(vis == "interactive"){
@@ -109,6 +118,34 @@ plot.select = function(x, vis= NULL, xlab= NULL, ylab= NULL, n.var = NULL, verte
 
 		p <- ncol(adj)
 		A <- graph.adjacency(adj, mode= "undirected")
+		
+				if(is.null(n.mem)) 
+			{
+				memberships = 1
+				#vertex.color = "red"
+		}else{
+			LG = length(n.mem)
+			memberships = NULL
+			i = 1
+			while( i <= LG)
+				{
+					grp <- rep(i, n.mem[i])
+					memberships = c(memberships, grp)
+					i = i + 1
+				}
+			#color <- sample(rainbow(max(memberships)+10, alpha=0.3), max(memberships))
+			#vertex.color = color[memberships]
+			names(memberships) <- colnames(x$opt.adj) #membership network 
+			E(A)$weight=apply(get.edgelist(A), 1, weight.community,memberships, weigth.within= w.btw, weight.between= w.within )#membership network 
+		}
+		
+		if(is.null(n.mem)){
+			#if(is.null(layout)) layout <- layout_with_fr(A)
+			layout	= layout.fruchterman.reingold 
+		}else{
+			layout = layout.fruchterman.reingold(A, weights=E(A)$weight) #membership network 
+		}
+		
 		if(is.null(layout)) layout <- layout_with_fr(A)
 		if(is.null(label.size)) label.size <- 1
 		V(A)$label.cex <- label.size
@@ -156,4 +193,14 @@ print.select = function(x, ...){
 	cat("To plot selected graph: plot(<YOUR OUTPUT NAME>) \n")
 	cat("To visualize an interactive network: plot(<YOUR OUTPUT NAME>, vis= \"interactive\") \n")
 	cat("To plot partial correlations: image(<YOUR OUTPUT NAME>$par.cor) \n")
+}
+
+
+weight.community=function(row,membership,weigth.within,weight.between){
+  if(as.numeric(membership[which(names(membership)==row[1])])==as.numeric(membership[which(names(membership)==row[2])])){
+    weight=weigth.within
+  }else{
+    weight=weight.between
+  }
+  return(weight)
 }

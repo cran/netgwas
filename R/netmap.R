@@ -7,7 +7,7 @@
 # Version: 0.0.1-1                                                              #
 #-------------------------------------------------------------------------------#
 
-netmap = function(data, method = "npn", rho = NULL, n.rho = NULL, rho.ratio = NULL, cross= NULL, min.m= NULL, use.comu= FALSE, ncores = "all", em.iter = 5, verbose = TRUE) 
+netmap = function(data, method = "npn", cross= NULL, rho = NULL, n.rho = NULL, rho.ratio = NULL, min.m= NULL, use.comu= FALSE, ncores = "all", em.iter = 5, verbose = TRUE) 
 {
 	if(is.null(cross)) stop("Please fill in the argument cross as \"inbred\" or \"outbred\" \n")
 	if(!is.matrix(data)) data <- as.matrix(data)
@@ -200,13 +200,17 @@ plot.netgwasmap = function(x, vis= NULL, layout= NULL, vertex.size= NULL, label.
 		screen(1)
 		plot(adj, layout=layout, edge.curved = F, vertex.label= vertex.label, vertex.color=vertex.color, edge.color="gray40", vertex.size=vertex.size, vertex.label.dist=0, vertex.label.color="darkblue", main="Three-dimensional map")
 		screen(4)
-		image(path, col = gray.colors(256), xlab= "markers", ylab="markers" ,main= "Conditional dependence relationships \nbefore ordering", cex.main=.8, cex.lab=.8, cex.axis=.8)
+		image(path, col = gray.colors(256), xaxt="n", yaxt="n", main= "Conditional dependence relationships \nbefore ordering", cex.main=.8, cex.lab=.8, cex.axis=.8)
+		title(ylab = "markers", cex.lab = 1, line = .5)
+		title(xlab = "markers", cex.lab = 1, line = .5)
 
 		index <- as.character(x$map[ ,1])
 		rownames(path) <- colnames(path)
 		path.After <- path[c(index), c(index)] 
 		screen(5)
-		image(path.After, col = gray.colors(256), xlab= "markers", ylab="markers" ,main="Conditional dependence relationships \nafter ordering", cex.main=0.8, cex.lab=.8, cex.axis=.8)
+		image(path.After, col = gray.colors(256), xaxt="n", yaxt="n", ,main="Conditional dependence relationships \nafter ordering", cex.main=0.8, cex.lab=.8, cex.axis=.8)
+		title(ylab = "markers", cex.lab = 1, line = .5)
+		title(xlab = "markers", cex.lab = 1, line = .5)
 	}
 	if(vis == "interactive")
 	{
@@ -241,6 +245,19 @@ plot.netgwasmap = function(x, vis= NULL, layout= NULL, vertex.size= NULL, label.
 			tkplot(A, vertex.label=colnames(adj) , layout=layout, vertex.color=vertex.color, edge.color=edge.color, vertex.size=vertex.size, vertex.label.dist=0)  
 		}	
 	}
+	if(vis == "unordered markers") 
+	{
+		opt.theta <- x$allres$Theta[[x$opt.index]]
+		image(opt.theta, xlab="markers", ylab="markers", main="Unordered markers", cex=1, sub= "")
+	}
+	if(vis == "ordered markers") 
+	{
+		opt.theta <- x$allres$Theta[[x$opt.index]]
+		rownames(opt.theta)  <- colnames(opt.theta) 
+		orderedm <- opt.theta[colnames(x$allres$data)  , colnames(x$allres$data) ]
+		image(orderedm,  xlab="markers", ylab="markers", main="Ordered markers", cex=1, sub="")
+	}
+	
 }
 
 #-----------------------------------------------------#

@@ -8,13 +8,13 @@ This is one of the main functions of the \pkg{netgwas} package. This function re
 }
 
 \usage{
-netphenogeno(data, method = "npn", rho = NULL, n.rho = NULL, rho.ratio = NULL,
+netphenogeno(data, method = "gibbs", rho = NULL, n.rho = NULL, rho.ratio = NULL,
 		ncores = "all", em.iter = 5, em.tol=.001, verbose = TRUE)
 }
 
 \arguments{
 	\item{data}{ An (\eqn{n \times p}) matrix or a \code{data.frame} corresponding to the data matrix (\eqn{n} is the sample size and \eqn{p} is the number of variables). The \eqn{p} columns include either a marker or trait(s) information. Input data can contain missing values.}
-	\item{method}{Reconstructing both genotype-phenotype interactions network and genotype-phenotype-environment interactions network with three methods: "gibbs", "approx", and "npn". For a medium (~500) and a large number of variables we recommend to choose "gibbs" and "approx", respectively. Choosing "npn" for a very large number of variables (> 2000) is computationally efficient. The default method is "npn".}
+	\item{method}{Reconstructing both genotype-phenotype interactions network and genotype-phenotype-environment interactions network with three methods: "gibbs", "approx", and "npn". For a medium (~500) and a large number of variables we recommend to choose "gibbs" and "approx", respectively. Choosing "npn" for a very large number of variables (> 2000) is computationally efficient. The default method is "gibbs".}
 	\item{rho}{ A decreasing sequence of non-negative numbers that control the sparsity level. Leaving the input as \code{rho = NULL}, the program automatically computes a sequence of \code{rho} based on \code{n.rho} and \code{rho.ratio}. Users can also supply a decreasing sequence values to override this.}
 	\item{n.rho}{ The number of regularization parameters. The default value is \code{10}.}
 	\item{rho.ratio}{ Determines distance between the elements of \code{rho} sequence. A small value of \code{rho.ratio} results in a large distance between the elements of \code{rho} sequence. And a large value of \code{rho.ratio} results into a small distance between elements of \code{rho}. The default value is \code{0.3}.}
@@ -70,12 +70,13 @@ An object with S3 class \code{"netgwas"} is returned:
 		sel <- selectnet(res)
 		#Plot selected network and the conditional correlation (CI) relationships 
 		plot(sel, vis="CI")
-		plot(sel, vis="CI", n.var = c(8,56,31,33,31,30), vertex.size=4)
+		plot(sel, vis="CI", n.mem = c(8, 56, 31, 33, 31, 30), w.btw =500, w.within=1)
 		#Visualize interactive plot of the selected network
 		#Color "red" for 8 phenotypes, and different colors for each chromosome.
 		cl <- c(rep("red", 8), rep("white",56), rep("tan1",31), 
 		      rep("gray",33), rep("lightblue2",31), rep("salmon2",30))
-		plot(sel, vis="interactive", vertex.color= cl)
+		plot(sel, vis="interactive", n.mem = c(8, 56, 31, 33, 31, 30), vertex.color= cl,
+			  w.btw= 500, w.within= 1)
 		#Partial correlations between genotypes and phenotypes in the thaliana dataset.
 		image(sel$par.cor, xlab="geno-pheno", ylab="geno-pheno", sub="")
 	}

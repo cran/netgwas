@@ -29,7 +29,10 @@ data(hdl)
 #Constructing genotype-phenotype networks in mice
 out <- netphenogeno(hdl)
 sel <- selectnet(out)
-plot(sel, vis= "CI", vertex.label = TRUE)
+plot(sel, vis= "CI", vertex.label= TRUE, xlab= "Genotype-Phenotype", ylab= "Genotype-Phenotype")
+cl <- c(rep("white", 5), rep("red", 10))
+plot(sel, vis="interactive", n.mem=c(5, 10), vertex.color= cl, w.btw= 10, w.within = 8  )
+
 }
 }
 
