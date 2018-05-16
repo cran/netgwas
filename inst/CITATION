@@ -1,0 +1,39 @@
+citHeader( "To cite package 'netgwas' in publications use:" )
+
+     ## R >= 2.8.0 passes package metadata to citation().
+     if( !exists( "meta" ) || is.null( meta ) ) meta <- packageDescription( "pgmm" )
+     year <- sub( ".*( 2[[:digit:]]{3} )-.*", "\\1", meta$Date )
+     vers <- paste( "R package version", meta$Version )
+
+citEntry( entry = "Manual",
+	title       = "netgwas: Network-Based Genome Wide Association Studies",
+	author      = personList( as.person( "Pariya Behrouzi" ), as.person( "Ernst C. Wit" ) ),
+	year        = year,
+	note        = vers,
+	textVersion = paste( "Behrouzi, P. and Wit, E. C., (", year, "). netgwas: Network-Based Genome Wide Association Studies.", vers, ".", sep="" )
+)
+
+citEntry( entry = "Article",
+	title       = "netgwas: An R Package for Network-Based Genome-Wide Association Studies",
+	author      = personList( as.person( "Pariya Behrouzi" ), as.person( "Danny Arends" ), as.person( "Ernst C. Wit" ) ),
+	textVersion = paste( "Behrouzi P., Arends D., and Wit E. C., (2017). netgwas: An R Package for Network-Based Genome-Wide Association Studies. arXiv preprint arXiv:1710.01236." ),
+	year        = "2017",
+	journal     = "arXiv preprint arXiv:1710.01236",
+)
+
+citEntry( entry = "Article",
+	title       = "De novo construction of q-ploid linkage maps using discrete graphical models",
+	author      = personList( as.person( "Pariya Behrouzi" ), as.person( "Ernst C. Wit" ) ),
+	textVersion = paste( "Behrouzi, P. and Wit, E. C., (2017). De novo construction of q-ploid linkage maps using discrete graphical models. arXiv preprint arXiv:1710.01063. " ),
+	year        = "2017",
+	journal     = "arXiv preprint arXiv:1710.01063",
+)
+
+
+citEntry( entry = "Article",
+	title       = "Detecting epistatic selection with partially observed genotype data by using copula graphical models",
+	author      = personList( as.person( "Pariya Behrouzi" ), as.person( "Ernst C. Wit" ) ),
+	textVersion = paste( "Behrouzi, P. and Wit, E. C., (2017). Detecting epistatic selection with partially observed genotype data by using copula graphical models. Journal of the Royal Statistical Society: Series C (Applied Statistics)" ),
+	year        = "2017",
+	journal     = "Journal of the Royal Statistical Society: Series C (Applied Statistics)",
+)

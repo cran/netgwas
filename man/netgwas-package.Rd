@@ -43,4 +43,15 @@ Maintainers: Pariya Behrouzi \email{pariya.behrouzi@gmail.com} \cr
 3. Behrouzi, P., and Wit, E. C. (2017c). netgwas: An R Package for Network-Based Genome-Wide Association Studies. arXiv preprint, arXiv:1710.01236.
 }
 
+\examples{
+\dontrun{
+# Notice: first install 'RBGL' from Bioconductor for the proper functionality of 'netgwas'
+source("https://bioconductor.org/biocLite.R")
+biocLite("RBGL")
+
+
+install.packages("netgwas")
+library(netgwas)
+}
+}
 \keyword{package}

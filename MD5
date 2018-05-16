@@ -1,4 +1,4 @@
-bcba1648e59774f7f37cbe1d6e903304 *DESCRIPTION
+3cabfaf8586ed0d4b9fbb1b241364fa8 *DESCRIPTION
 fd5f8e8dec6043d11db70b394bfaef5f *NAMESPACE
 cbf0976a3ae75df81cbe7cc10d45281e *R/Gibbs_method.R
 5992dae872e70c4679c1d03aa700a81b *R/R.approx.R
@@ -26,6 +26,7 @@ f6b9153576872f94a3cd8a4acafe635f *R/simgeno.R
 a082c5baf54bc79b22125f1023b08af6 *data/hdl.RData
 5ce00a473165562b1de5c36ed93b589d *data/tetraPotato.RData
 158c6f26a5c0a93c3e66c5d59731390b *data/thaliana.RData
+b933ec2e27dc297be9172656a70bd74a *inst/CITATION
 4cc5b996aa6c44d3971a20f6420726a2 *man/CviCol.Rd
 3f539b42fd78c9d1e9f3e8e98d30a414 *man/R.approx.Rd
 2202ad7212d158feee7daddcd3421b18 *man/R.gibbs.Rd
@@ -35,7 +36,7 @@ fe4371aef454fb861b1ee0596446a16c *man/cutoffs.Rd
 0b26422f5e63ef9ea883c7c75f30c23f *man/hdl.Rd
 2e8b7cc2c7f3b60996c6ac9e9b8f7b8d *man/lower.upper.Rd
 8e3c91def740496dc70b79401718b4ac *man/netgwas-internal.Rd
-70ec87d252f9940dddcad440df4e080a *man/netgwas-package.Rd
+e459425207c745a58770aaefc414f2cd *man/netgwas-package.Rd
 6baad017439dd3d0e0906ebe896ff317 *man/netmap.Rd
 99cbc18d4be4ea22b6674e706617ca17 *man/netphenogeno.Rd
 5a33764b9151d80a2987c02642ba0e82 *man/netsnp.Rd
