@@ -32,7 +32,7 @@ R.approx(y, Z = NULL, Sigma=NULL, rho = NULL, ncores = NULL )
 
 \references{
 1. Behrouzi, P., and Wit, E. C. (2017c). netgwas: An R Package for Network-Based Genome-Wide Association Studies. arXiv preprint, arXiv:1710.01236. \cr
-2. Behrouzi, P., and Wit, E. C. (2017a). Detecting Epistatic Selection with Partially Observed Genotype Data Using Copula Graphical Models. arXiv preprint, arXiv:1710.00894.
+2. Behrouzi, P. and Wit, E.C., (2017a). Detecting epistatic selection with partially observed genotype data by using copula graphical models. Journal of the Royal Statistical Society: Series C (Applied Statistics).
 }
 
 \examples{

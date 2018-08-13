@@ -1,16 +1,18 @@
 Package: netgwas
 Type: Package
 Title: Network-Based Genome Wide Association Studies
-Version: 1.5.0
+Version: 1.7.0
 Author: Pariya Behrouzi <https://orcid.org/0000-0001-6762-5433> and Ernst C. Wit
 Maintainer: Pariya Behrouzi <pariya.behrouzi@gmail.com>
-Depends: R (>= 3.1.0), Matrix, igraph, parallel
-Imports: methods, glasso, MASS, RBGL, huge,tmvtnorm
-Description: A multi-core R package that contains a set of tools based on undirected graphical models for accomplishing three important and interrelated goals in genetics: (1) linkage map construction, (2) reconstructing intra- and inter-chromosomal conditional interactions (linkage disequilibrium) networks, and (3) exploring high-dimensional genotype-phenotype network and genotype-phenotype-environment interactions network. For this purpose, we use conditional (in)dependence relationships between variables. The netgwas package can deal with biparental inbreeding and outbreeding species with any ploidy level, namely diploid (2 sets of chromosomes), triploid (3 sets of chromosomes), tetraploid (4 sets of chromosomes) and so on. We target on high-dimensional data where number of variables p is larger than number of sample sizes (p >> n). The computations is memory-optimized using the sparse matrix output. The package is implemented the recent developments in Behrouzi and Wit (2017) <arXiv:1710.00894> and Behrouzi and Wit (2017) <arXiv:1710.01063>. 
+Depends: R (>= 3.1.0)
+Imports: Matrix, igraph, qtl, parallel, methods, glasso, MASS, RBGL,
+        huge,tmvtnorm
+Suggests: testthat
+Description: A multi-core R package that contains a set of tools based on undirected graphical models for accomplishing three important and interrelated goals in genetics: (1) linkage map construction, (2) reconstructing intra- and inter-chromosomal conditional interactions (linkage disequilibrium) networks, and (3) exploring high-dimensional genotype-phenotype network and genotype-phenotype-environment interactions network. For this purpose, we use conditional (in)dependence relationships between variables. The netgwas package can deal with biparental inbreeding and outbreeding species with any ploidy level, namely diploid (2 sets of chromosomes), triploid (3 sets of chromosomes), tetraploid (4 sets of chromosomes) and so on. We target on high-dimensional data where number of variables p is larger than number of sample sizes (p >> n). The computations is memory-optimized using the sparse matrix output. The package is implemented the recent developments in Behrouzi and Wit (2017) <doi:10.1111/rssc.12287> and Behrouzi and Wit (2017) <arXiv:1710.01063>. 
              NOTICE proper functionality of 'netgwas' requires that the 'RBGL' package is installed from 'bioconductor'; for installation instruction please refer to the 'RBGL' web page given below.
 License: GPL-3
-Date: 2018-05-16
+Date: 2018-08-13
 NeedsCompilation: no
-Packaged: 2018-05-16 14:14:45 UTC; behro001
+Packaged: 2018-08-13 09:26:44 UTC; behro001
 Repository: CRAN
-Date/Publication: 2018-05-16 15:59:42 UTC
+Date/Publication: 2018-08-13 10:00:03 UTC

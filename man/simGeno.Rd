@@ -29,7 +29,7 @@ simgeno( p = 90, n = 200, k = NULL, g = NULL, adjacent = NULL, alpha =
 
 \details{
 The graph pattern is generated as below: \cr\cr
-"genome-like": The \code{p} variables are evenly partitions variables into \code{g} disjoint groups; the adjacent variables within each group are linked via an edge. With a probability \code{alpha} a pair of non-adjacent variables in the same group is given an edge. Variables in different groups are linked with an edge with a probability of \code{beta}.
+genome-like: \code{p} variables are evenly partitions variables into \code{g} disjoint groups; the adjacent variables within each group are linked via an edge. With a probability \code{alpha} a pair of non-adjacent variables in the same group is given an edge. Variables in different groups are linked with an edge with a probability of \code{beta}.
 }
 
 \value{
@@ -49,8 +49,8 @@ An object with S3 class "simgeno" is returned: \cr \cr
 }
 
 \references{
-1. Behrouzi, P., and Wit, E. C. (2017c). netgwas: An R Package for Network-Based Genome-Wide Association Studies. arXiv preprint, arXiv:1710.01236.
-2. Behrouzi, P., and Wit, E. C. (2017a). Detecting Epistatic Selection with Partially Observed Genotype Data Using Copula Graphical Models. arXiv preprint, arXiv:1710.00894. \cr
+1. Behrouzi, P., and Wit, E. C. (2017c). netgwas: An R Package for Network-Based Genome-Wide Association Studies. arXiv preprint, arXiv:1710.01236.\cr
+2. Behrouzi, P. and Wit, E.C., (2017a). Detecting epistatic selection with partially observed genotype data by using copula graphical models. Journal of the Royal Statistical Society: Series C (Applied Statistics). \cr
 }
 
 \seealso{

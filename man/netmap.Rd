@@ -9,8 +9,8 @@ This is one of the main functions of \pkg{netgwas} package. This function recons
 
 \usage{
 netmap(data, method = "npn", cross= NULL, rho = NULL, n.rho = NULL, 
-            rho.ratio = NULL, min.m= NULL, use.comu= FALSE,
-			ncores = "all", em.iter = 5, verbose = TRUE)
+      rho.ratio = NULL, min.m= NULL, use.comu= FALSE, ncores = "all",
+		  em.iter = 5, verbose = TRUE)
 }
 
 \arguments{

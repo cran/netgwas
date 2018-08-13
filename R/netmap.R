@@ -9,7 +9,7 @@
 
 netmap = function(data, method = "npn", cross= NULL, rho = NULL, n.rho = NULL, rho.ratio = NULL, min.m= NULL, use.comu= FALSE, ncores = "all", em.iter = 5, verbose = TRUE) 
 {
-	if(is.null(cross)) stop("Please fill in the argument cross as \"inbred\" or \"outbred\" \n")
+	if(is.null(cross)) stop("the argument cross should be fill in either as \"inbred\" or \"outbred\" \n")
 	if(!is.matrix(data)) data <- as.matrix(data)
 	if(ncores == "all") ncores <- detectCores() - 1
 	if(is.null(em.iter)) em.iter = 5
@@ -161,6 +161,7 @@ if( method == "gibbs" ||  method== "approx" )
 	map <- buildMap.internal(network= sel.net$opt.theta, cross= cross, num.iso.m= min.m, use.comu= use.comu)
 
 	result$data <- result$data[ , c(as.character(map[,1]))]
+	if(cross == "outbred") map <- data.frame(map) #added due to cross obj as.cross fun (can be removed later)
 	results <- list( map= map, opt.index= sel.net$opt.index, cross.typ= cross, allres= result)
 	
 	class(results$allres) = "netgwas"

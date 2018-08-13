@@ -51,7 +51,7 @@ and anything else that is included in the input \code{netgwas.obj}.
  }
 
 \references{
-1. Behrouzi, P., and Wit, E. C. (2017a). Detecting Epistatic Selection with Partially Observed Genotype Data Using Copula Graphical Models. arXiv preprint, arXiv:1710.00894. \cr
+1. Behrouzi, P. and Wit, E.C., (2017a). Detecting epistatic selection with partially observed genotype data by using copula graphical models. Journal of the Royal Statistical Society: Series C (Applied Statistics). \cr
 2. Behrouzi, P., and Wit, E. C. (2017c). netgwas: An R Package for Network-Based Genome-Wide Association Studies. arXiv preprint, arXiv:1710.01236. \cr
 3. Ibrahim, Joseph G., Hongtu Zhu, and Niansheng Tang. (2012). Model selection criteria for missing-data problems using the EM algorithm. Journal of the American Statistical Association.
 4. D. Witten and J. Friedman. (2011). New insights and faster computations for the graphical lasso. \emph{Journal of Computational and Graphical Statistics}, to appear. \cr
