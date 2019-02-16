@@ -8,7 +8,7 @@
 # Version: 0.0.1-1                                                      #
 #-----------------------------------------------------------------------#
 
-netphenogeno = function(data, method = "gibbs", rho = NULL, n.rho = NULL, rho.ratio = NULL, ncores = "all", em.iter = 5, em.tol = .001, verbose = TRUE) 
+netphenogeno = function(data, method = "gibbs", rho = NULL, n.rho = NULL, rho.ratio = NULL, ncores = 1, em.iter = 5, em.tol = .001, verbose = TRUE) 
 {
 
 	if(!is.matrix(data)) data <- as.matrix(data)

@@ -9,7 +9,7 @@ This is one of the main functions of the \pkg{netgwas} package. This function ca
 
 \usage{
 netsnp(data, method = "gibbs", rho = NULL, n.rho = NULL, rho.ratio = NULL, 
-		ncores = "all", em.iter = 5, em.tol = .001, verbose = TRUE)
+		ncores = 1, em.iter = 5, em.tol = .001, verbose = TRUE)
 }
 
 \arguments{
@@ -48,7 +48,7 @@ An object with S3 class \code{"netgwas"} is returned:
 }
 
 \references{
-1. Behrouzi, P. and Wit, E.C., (2017a). Detecting epistatic selection with partially observed genotype data by using copula graphical models. Journal of the Royal Statistical Society: Series C (Applied Statistics). \cr
+1. Behrouzi, P., and Wit, E. C. (2019). Detecting epistatic selection with partially observed genotype data by using copula graphical models. Journal of the Royal Statistical Society: Series C (Applied Statistics), 68(1), 141-160. \cr
 2. Behrouzi, P., and Wit, E. C. (2017c). netgwas: An R Package for Network-Based Genome-Wide Association Studies. arXiv preprint, arXiv:1710.01236.
 3. D. Witten and J. Friedman. New insights and faster computations for the graphical lasso. \emph{Journal of Computational and Graphical Statistics}, to appear, 2011. \cr
 4. Guo, Jian, et al. "Graphical models for ordinal data." Journal of Computational and Graphical Statistics 24.1 (2015): 183-204. \cr
@@ -72,12 +72,14 @@ An object with S3 class \code{"netgwas"} is returned:
 		epi <- selectnet(out)
 		plot(epi, vis="CI", xlab="markers", ylab="markers", 
 		    n.mem = c(24,14,17,16,19), vertex.size=4)
+		    
 		#Visualize interactive plot of the selected network
 		#Different colors for each chromosome
 		cl <- c(rep("red", 24), rep("white",14), rep("tan1",17), 
 		      rep("gray",16), rep("lightblue2",19))
 		plot(epi, vis="interactive", vertex.color= cl)
+		
 		#Partial correlations between markers on genome
-		image(epi$par.cor, xlab="markers", ylab="markers", sub="")
+		image(as.matrix(epi$par.cor), xlab="markers", ylab="markers", sub="")
 	}	
 }

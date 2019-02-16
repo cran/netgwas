@@ -38,6 +38,3 @@ approx_method = function(y, Z, ES=NULL, rho = NULL, lower_upper=NULL, chain=1, n
 
 	invisible(return(approx.method))
 }
-
-
-

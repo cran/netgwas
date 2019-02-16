@@ -33,7 +33,7 @@ A \eqn{n} by \eqn{p} matrix representing the upper band for each data point.
 }
 
 \references{
-Behrouzi, P., and Wit, E. C. (2017a). Detecting Epistatic Selection with Partially Observed Genotype Data Using Copula Graphical Models. arXiv preprint, arXiv:1710.00894.
+Behrouzi, P., and Wit, E. C. (2019). Detecting epistatic selection with partially observed genotype data by using copula graphical models. Journal of the Royal Statistical Society: Series C (Applied Statistics), 68(1), 141-160. \cr
 }
 
 \seealso{

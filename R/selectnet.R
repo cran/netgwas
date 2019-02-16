@@ -49,7 +49,9 @@ readkey <- function()
 # Author: Pariya Behrouzi                             #
 # Email: <pariya.Behrouzi@gmail.com>                  #
 #-----------------------------------------------------#
-plot.select = function(x, vis= NULL, xlab= NULL, ylab= NULL, n.mem = NULL, vertex.label = FALSE, ..., layout = NULL, label.vertex = "all", vertex.size = NULL, vertex.color = "red" , edge.color = "gray29", sel.label = NULL, label.size = NULL, w.btw= 800, w.within = 10)
+plot.select = function(x, vis= NULL, xlab= NULL, ylab= NULL, n.mem = NULL, vertex.label = FALSE, ..., layout = NULL, label.vertex = "all", vertex.size = NULL, vertex.color = NULL , edge.color = "gray29", sel.nod.label = NULL, label.size = NULL, w.btw= 800, w.within = 10,
+                  sign.edg= TRUE, edge.width= NULL, edge.label= NULL,  max.degree= NULL, layout.tree= NULL, root.node= NULL, degree.node= NULL, curve= FALSE)
+  #plot.select = function(x, vis= NULL, xlab= NULL, ylab= NULL, n.mem = NULL, vertex.label = FALSE, ..., layout = NULL, label.vertex = "all", vertex.size = NULL, vertex.color = "red" , edge.color = "gray29", sel.nod.label = NULL, label.size = NULL, w.btw= 800, w.within = 10)
 {
 	if(class(x) != "select") stop("The input of this plot function should be from \"select\" class (More info in: selectnet( ) ). \n")
 	if(is.null(vis)) vis <-  "CI"
@@ -113,8 +115,8 @@ plot.select = function(x, vis= NULL, xlab= NULL, ylab= NULL, n.mem = NULL, verte
 		if(is.null(label.vertex)) label.vertex <- "all"
 		if(is.null(vertex.color)) vertex.color <- "red"
 		if(is.null(edge.color)) edge.color <- "gray29"
-		if(is.null(sel.label)) sel.label <- NULL
-		if((label.vertex == "some") && (is.null(sel.label )) ) stop("Please select some vertex label(s) or fix label.vertex to either none or all.")
+		if(is.null(sel.nod.label)) sel.nod.label <- NULL
+		if((label.vertex == "some") && (is.null(sel.nod.label )) ) stop("Please select some vertex label(s) or fix label.vertex to either none or all.")
 
 		p <- ncol(adj)
 		A <- graph.adjacency(adj, mode= "undirected")
@@ -159,13 +161,84 @@ plot.select = function(x, vis= NULL, xlab= NULL, ylab= NULL, n.mem = NULL, verte
 		if(label.vertex == "some") 
 		{
 			V(A)$label <- colnames(adj)
-			tkplot(A, vertex.label=ifelse(V(A)$label %in% sel.label, V(A)$label, NA ), layout=layout, vertex.color=vertex.color, edge.color=edge.color, vertex.size=vertex.size, vertex.label.dist=0)
+			tkplot(A, vertex.label=ifelse(V(A)$label %in% sel.nod.label, V(A)$label, NA ), layout=layout, vertex.color=vertex.color, edge.color=edge.color, vertex.size=vertex.size, vertex.label.dist=0)
 		}
 		if(label.vertex == "all") 
 		{	
 			V(A)$label <- colnames(adj)
 			tkplot(A, vertex.label=colnames(adj) , layout=layout, vertex.color=vertex.color, edge.color=edge.color, vertex.size=vertex.size, vertex.label.dist=0)  
 		}
+	}
+	
+	# correspondence to the plotG3.R (my local) file.
+	if(vis == "parcor.network"){
+	  if(is.null(edge.width)) edge.width = FALSE
+	  if(is.null(edge.label)) edge.label = FALSE
+	  if(is.null(label.size)) label.size <-  0.9
+	  if(is.null(vertex.size)) vertex.size <- 5
+	  if(is.null(layout.tree)) layout.tree = FALSE
+	  if(is.null(root.node)) root.node <- 1
+	  if(is.null(degree.node)) degree.node <- 0
+	  if(is.null(vertex.color)) vertex.color <- "lightblue3"
+	  
+	  p <- ncol(x$par.cor)
+	  par.cor <- as.matrix(x$par.cor)
+	  
+	  if(sign.edg == TRUE) 
+	  {
+	    adj <- graph.adjacency(par.cor, weighted=TRUE, diag=FALSE, mode= "lower")
+	    E(adj)$color[(E(adj)$weight < 0) ] <-  'darkblue'
+	    E(adj)$color[(E(adj)$weight > 0) ] <-  'red3'
+	    E(adj)$lty[abs(E(adj)$weight) >= 0.90 ] <- 1
+	    E(adj)$lty[(abs(E(adj)$weight) < 0.90) & ( abs(E(adj)$weight) >= 0.65 )] <- 6
+	    E(adj)$lty[(abs(E(adj)$weight) < 0.65) & (abs(E(adj)$weight) >= 0.35 )] <- 5
+	    E(adj)$lty[(abs(E(adj)$weight) < 0.35) & ( abs(E(adj)$weight) >= 0.10 )] <- 2
+	    E(adj)$lty[ (abs(E(adj)$weight) < 0.10) & ( abs(E(adj)$weight) >= 0.00 )] <- 3
+	  }else{
+	    path <-  abs(sign(par.cor)) - diag(rep(1,p))
+	    adj <- graph.adjacency(path, mode="undirected")
+	    E(adj)$color <- "gray40"
+	  }
+	  V(adj)$label.cex <- label.size
+	  V(adj)$label <- colnames(par.cor)
+	  
+	  if(layout.tree == TRUE) 
+	  {
+	    pathA <-  abs(sign(par.cor)) - diag(rep(1,p))
+	    A <- graph.adjacency(pathA, mode="undirected")
+	    layout <- layout_as_tree(A, root = root.node) 
+	  }else{
+	    pathA <- abs(sign(par.cor)) - diag(rep(1,p))
+	    A <- graph.adjacency(pathA, mode="undirected")
+	    #if(is.null(layout)) layout <- layout_with_fr(A)  
+	    if(is.null(layout)) layout <- layout_with_kk(A)
+	  }
+	  
+	  if(layout.tree == TRUE){
+	    if(is.null(degree.node)) {
+	      deg <- 0
+	      vertex.label.dist <- 0
+	    }
+	    if(!is.null(degree.node)) {
+	      deg <- degree.node
+	      vertex.label.dist <- 1
+	    }
+	  }else{
+	    deg <- degree.node 
+	    vertex.label.dist <- 0
+	  }
+	  if(edge.label == TRUE) edge.label=round(E(adj)$weight,2) else edge.label= NULL
+	  if(edge.width == TRUE) edge.width = E(adj)$weight else edge.width= NULL
+	  
+	  if((!is.null(max.degree)) && (is.null(sel.nod.label)) ) plot(adj, vertex.label=ifelse(degree(adj) >= max.degree, V(adj)$label, NA), layout=layout, edge.curved = curve,  vertex.color=vertex.color, 
+	                                                        vertex.size=vertex.size, layout = layout, vertex.label.color="black", vertex.label.degree =deg , label.degree= deg, vertex.label.dist= vertex.label.dist)
+	  if((!is.null(sel.nod.label)) && (is.null(max.degree))) plot(adj, edge.label= edge.label, edge.width= edge.width, vertex.label=ifelse(V(adj)$label %in% sel.nod.label, V(adj)$label, NA ), layout=layout, edge.curved = curve,  vertex.color=vertex.color, 
+	                                                       vertex.size=vertex.size, layout = layout, vertex.label.color="black",  vertex.label.degree =deg, label.degree= deg, vertex.label.dist= vertex.label.dist) 
+	  if((is.null(max.degree) ) && (is.null(sel.nod.label))) plot(adj, vertex.label= colnames(par.cor), layout=layout, edge.curved = curve,  vertex.color=vertex.color, 
+	                                                       vertex.size=vertex.size, layout = layout, vertex.label.color="black", vertex.label.degree =deg, label.degree= deg, vertex.label.dist= vertex.label.dist)
+	  
+	  if(! is.null(E(adj)$lty)) legend("bottomleft", legend=c( ">= 0.90", "0.90-0.65" , "0.65-0.35", "0.35-0.10", "0.10-0.00") , col="black", cex=0.8,  lty= c(1, 6, 5, 2, 3), title=" |partial corr|" )
+	  
 	}
 }
 

@@ -9,7 +9,7 @@ This is one of the main functions of the \pkg{netgwas} package. This function re
 
 \usage{
 netphenogeno(data, method = "gibbs", rho = NULL, n.rho = NULL, rho.ratio = NULL,
-		ncores = "all", em.iter = 5, em.tol=.001, verbose = TRUE)
+		ncores = 1, em.iter = 5, em.tol=.001, verbose = TRUE)
 }
 
 \arguments{
@@ -46,7 +46,7 @@ An object with S3 class \code{"netgwas"} is returned:
 }
 
 \references{
-1. Behrouzi, P. and Wit, E.C., (2017a). Detecting epistatic selection with partially observed genotype data by using copula graphical models. Journal of the Royal Statistical Society: Series C (Applied Statistics). \cr
+1. Behrouzi, P., and Wit, E. C. (2019). Detecting epistatic selection with partially observed genotype data by using copula graphical models. Journal of the Royal Statistical Society: Series C (Applied Statistics), 68(1), 141-160. \cr
 2. Behrouzi, P., and Wit, E. C. (2017c). netgwas: An R Package for Network-Based Genome-Wide Association Studies. arXiv preprint, arXiv:1710.01236. \cr
 3. D. Witten and J. Friedman. New insights and faster computations for the graphical lasso. \emph{Journal of Computational and Graphical Statistics}, to appear, 2011. \cr
 4. Guo, Jian, et al. "Graphical models for ordinal data." Journal of Computational and Graphical Statistics 24.1 (2015): 183-204. \cr
@@ -70,14 +70,25 @@ An object with S3 class \code{"netgwas"} is returned:
 		sel <- selectnet(res)
 		#Plot selected network and the conditional correlation (CI) relationships 
 		plot(sel, vis="CI")
-		plot(sel, vis="CI", n.mem = c(8, 56, 31, 33, 31, 30), w.btw =500, w.within=1)
-		#Visualize interactive plot of the selected network
+		plot(sel, vis="CI", n.mem = c(8, 56, 31, 33, 31, 30), w.btw =50, w.within= 1)
+		
+		#Visualize interactive plot for the selected network
 		#Color "red" for 8 phenotypes, and different colors for each chromosome.
 		cl <- c(rep("red", 8), rep("white",56), rep("tan1",31), 
 		      rep("gray",33), rep("lightblue2",31), rep("salmon2",30))
+		      
+		#The IDs of phenotypes and SNPs to be shown in the network       
+    id <- c("DTF_LD","CLN_LD","RLN_LD","TLN_LD","DTF_SD","CLN_SD","RLN_SD", 
+        "TLN_SD","snp15","snp16","snp17","snp49","snp50","snp60","snp75",
+        "snp76","snp81","snp83","snp84","snp86","snp82", "snp113","snp150",
+        "snp155","snp159","snp156","snp161","snp158","snp160","snp162","snp181")
+		
 		plot(sel, vis="interactive", n.mem = c(8, 56, 31, 33, 31, 30), vertex.color= cl,
-			  w.btw= 500, w.within= 1)
+		    label.vertex= "some", sel.nod.label= id, edge.color= "gray", w.btw= 50,
+		    w.within= 1)
+		
 		#Partial correlations between genotypes and phenotypes in the thaliana dataset.
+		library(Matrix)
 		image(sel$par.cor, xlab="geno-pheno", ylab="geno-pheno", sub="")
 	}
 }

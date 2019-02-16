@@ -199,9 +199,10 @@ plot.netgwasmap = function(x, vis= NULL, layout= NULL, vertex.size= NULL, label.
 		split.screen( figs = c( 1, 1 ), screen = 1 )
 		split.screen( figs = c( 2, 1 ), screen = 2 )
 		screen(1)
-		plot(adj, layout=layout, edge.curved = F, vertex.label= vertex.label, vertex.color=vertex.color, edge.color="gray40", vertex.size=vertex.size, vertex.label.dist=0, vertex.label.color="darkblue", main="Three-dimensional map")
+		plot(adj, layout=layout, edge.curved = F, vertex.label= vertex.label, vertex.color=vertex.color, edge.color="gray40", vertex.size=vertex.size, vertex.label.dist=0, vertex.label.color="darkblue", main="Network")
 		screen(4)
-		image(path, col = gray.colors(256), xaxt="n", yaxt="n", main= "Conditional dependence relationships \nbefore ordering", cex.main=.8, cex.lab=.8, cex.axis=.8)
+		#image(path, col = gray.colors(256), xaxt="n", yaxt="n", main= "Conditional dependence relationships \nbefore ordering", cex.main=.8, cex.lab=.8, cex.axis=.8)
+		image(path, col = c("white", "black"), xaxt="n", yaxt="n", main= "Conditional dependence relationships \nbefore ordering", cex.main=.8, cex.lab=.8, cex.axis=.8)
 		title(ylab = "markers", cex.lab = 1, line = .5)
 		title(xlab = "markers", cex.lab = 1, line = .5)
 
@@ -209,7 +210,8 @@ plot.netgwasmap = function(x, vis= NULL, layout= NULL, vertex.size= NULL, label.
 		rownames(path) <- colnames(path)
 		path.After <- path[c(index), c(index)] 
 		screen(5)
-		image(path.After, col = gray.colors(256), xaxt="n", yaxt="n", ,main="Conditional dependence relationships \nafter ordering", cex.main=0.8, cex.lab=.8, cex.axis=.8)
+		#image(path.After, col = gray.colors(256), xaxt="n", yaxt="n", ,main="Conditional dependence relationships \nafter ordering", cex.main=0.8, cex.lab=.8, cex.axis=.8)
+		image(path.After, col = c("white", "black"), xaxt="n", yaxt="n", ,main="Conditional dependence relationships \nafter ordering", cex.main=0.8, cex.lab=.8, cex.axis=.8)
 		title(ylab = "markers", cex.lab = 1, line = .5)
 		title(xlab = "markers", cex.lab = 1, line = .5)
 	}
@@ -249,7 +251,7 @@ plot.netgwasmap = function(x, vis= NULL, layout= NULL, vertex.size= NULL, label.
 	if(vis == "unordered markers") 
 	{
 		opt.theta <- x$allres$Theta[[x$opt.index]]
-		image(opt.theta, xlab="markers", ylab="markers", main="Unordered markers", cex=1, sub= "")
+		image(Matrix(opt.theta), xlab="markers", ylab="markers", main="Unordered markers", cex=1, sub= "")
 	}
 	if(vis == "ordered markers") 
 	{

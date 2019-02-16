@@ -45,7 +45,7 @@ An object with S3 class \code{"netgwasmap"} is returned:
 }
 
 \references{
-1. Behrouzi, Pariya, and Ernst C. Wit. "De novo construction of q-ploid linkage maps using discrete graphical models." arXiv preprint arXiv:1710.01063 (2017). \cr
+1. Behrouzi, P., and Wit, E. C. (2018). De novo construction of polyploid linkage maps using discrete graphical models. Bioinformatics. \cr
 2. Behrouzi, Pariya, and Ernst C. Wit. "netgwas: An R Package for Network-Based Genome-Wide Association Studies." arXiv preprint arXiv:1710.01236 (2017). \cr
 3. Guo, Jian, Elizaveta Levina, George Michailidis, and Ji Zhu. "Graphical models for ordinal data." Journal of Computational and Graphical Statistics 24, no. 1 (2015): 183-204. \cr
 4. Liu, Han, Fang Han, Ming Yuan, John Lafferty, and Larry Wasserman. "High-dimensional semiparametric Gaussian copula graphical models." The Annals of Statistics 40, no. 4 (2012): 2293-2326. \cr 

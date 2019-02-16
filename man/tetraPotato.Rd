@@ -30,7 +30,7 @@ potato <- tetraPotato[ ,sample(1:ncol(tetraPotato), ncol(tetraPotato), replace=F
 #Constructing linkage map for tetraploid potato
 out <- netmap(potato, cross = "outbred"); out
 potato.map <- out$map; potato.map
-plot(out)
+#plot(out)
 }
 }
 
