@@ -50,11 +50,17 @@ readkey <- function()
 # Email: <pariya.Behrouzi@gmail.com>                  #
 #-----------------------------------------------------#
 plot.select = function(x, vis= NULL, xlab= NULL, ylab= NULL, n.mem = NULL, vertex.label = FALSE, ..., layout = NULL, label.vertex = "all", vertex.size = NULL, vertex.color = NULL , edge.color = "gray29", sel.nod.label = NULL, label.size = NULL, w.btw= 800, w.within = 10,
-                  sign.edg= TRUE, edge.width= NULL, edge.label= NULL,  max.degree= NULL, layout.tree= NULL, root.node= NULL, degree.node= NULL, curve= FALSE)
+                  sign.edg= TRUE, edge.width= NULL, edge.label= NULL,  max.degree= NULL, layout.tree= NULL, root.node= NULL, degree.node= NULL, curve= FALSE, pos.legend= "bottomleft", cex.legend= 0.8, iterl = NULL, temp = NULL, tk.width = NULL, tk.height= NULL)
   #plot.select = function(x, vis= NULL, xlab= NULL, ylab= NULL, n.mem = NULL, vertex.label = FALSE, ..., layout = NULL, label.vertex = "all", vertex.size = NULL, vertex.color = "red" , edge.color = "gray29", sel.nod.label = NULL, label.size = NULL, w.btw= 800, w.within = 10)
 {
 	if(class(x) != "select") stop("The input of this plot function should be from \"select\" class (More info in: selectnet( ) ). \n")
 	if(is.null(vis)) vis <-  "CI"
+	if(is.null(xlab)) xlab <- "variables"
+	if(is.null(ylab)) ylab <- "variables"
+
+	if(vis == "image.parcorMatrix") print(image(Matrix(x$par.cor), xlab=xlab, ylab=ylab, main= "partial correlation matrix", sub="") )
+	if(vis == "image.adj") print(image(Matrix(x$opt.adj), xlab=xlab, ylab=ylab, main= "adjacency matrix", sub=""))
+	if(vis == "image.precision") print(image(Matrix(x$opt.theta), xlab=xlab, ylab=ylab, main= "precision matrix", sub="")) 
 	
 	if(vis == "CI" ){
 
@@ -68,7 +74,8 @@ plot.select = function(x, vis= NULL, xlab= NULL, ylab= NULL, n.mem = NULL, verte
 					vertex.label= NA
 			}
 		}
-		if(is.null(vertex.size)) vertex.size = 7
+		if(is.null(vertex.size)) vertex.size <- 7
+		if(is.null(cex.legend)) cex.legend <- 0.8
 		
 		adj = graph.adjacency(as.matrix(x$opt.adj), mode="undirected", diag=FALSE)
 		if(is.null(n.mem)) 
@@ -98,77 +105,15 @@ plot.select = function(x, vis= NULL, xlab= NULL, ylab= NULL, n.mem = NULL, verte
 		}
 		
 		plot(adj, layout= layout, vertex.color= vertex.color , edge.color='gray40', vertex.size = vertex.size, vertex.label = vertex.label, vertex.label.dist = 0, main= "Selected graph")	 	  
-		if(length(memberships) > 1) legend("bottomright", paste("group", 1:length(n.mem)), cex=0.7, col= color, pch=rep(20,10))
+		if(length(memberships) > 1) legend(pos.legend, paste("group", 1:length(n.mem)), cex=cex.legend, col= color, pch=rep(20,10))
 		readkey()
 		
-		if(is.null(xlab)) xlab <- ""
-		if(is.null(ylab)) ylab <- ""
+		#if(is.null(xlab)) xlab <- ""
+		#if(is.null(ylab)) ylab <- ""
 		image(as.matrix(x$opt.adj), xaxt="n", yaxt="n", col = gray.colors(256) ,main="Conditional dependence relationships" , cex=0.8) 
 		title(ylab = ylab, cex.lab = 1, line = .5)
 		title(xlab = xlab, cex.lab = 1, line = .5)
 	}	
-	
-	if(vis == "interactive"){
-		adj <- as.matrix(x$opt.adj)
-		  
-		if(is.null(vertex.size)) vertex.size <- 7
-		if(is.null(label.vertex)) label.vertex <- "all"
-		if(is.null(vertex.color)) vertex.color <- "red"
-		if(is.null(edge.color)) edge.color <- "gray29"
-		if(is.null(sel.nod.label)) sel.nod.label <- NULL
-		if((label.vertex == "some") && (is.null(sel.nod.label )) ) stop("Please select some vertex label(s) or fix label.vertex to either none or all.")
-
-		p <- ncol(adj)
-		A <- graph.adjacency(adj, mode= "undirected")
-		
-				if(is.null(n.mem)) 
-			{
-				memberships = 1
-				#vertex.color = "red"
-		}else{
-			LG = length(n.mem)
-			memberships = NULL
-			i = 1
-			while( i <= LG)
-				{
-					grp <- rep(i, n.mem[i])
-					memberships = c(memberships, grp)
-					i = i + 1
-				}
-			#color <- sample(rainbow(max(memberships)+10, alpha=0.3), max(memberships))
-			#vertex.color = color[memberships]
-			names(memberships) <- colnames(x$opt.adj) #membership network 
-			E(A)$weight=apply(get.edgelist(A), 1, weight.community,memberships, weigth.within= w.btw, weight.between= w.within )#membership network 
-		}
-		
-		if(is.null(n.mem)){
-			#if(is.null(layout)) layout <- layout_with_fr(A)
-			layout	= layout.fruchterman.reingold 
-		}else{
-			layout = layout.fruchterman.reingold(A, weights=E(A)$weight) #membership network 
-		}
-		
-		if(is.null(layout)) layout <- layout_with_fr(A)
-		if(is.null(label.size)) label.size <- 1
-		V(A)$label.cex <- label.size
-	 
-		if(label.vertex == "none")
-		{
-			V(A)$label <- NA
-			tkplot(A, layout=layout, vertex.color=vertex.color, edge.color=edge.color, vertex.size=vertex.size, vertex.label.dist=0)  
-		}
-
-		if(label.vertex == "some") 
-		{
-			V(A)$label <- colnames(adj)
-			tkplot(A, vertex.label=ifelse(V(A)$label %in% sel.nod.label, V(A)$label, NA ), layout=layout, vertex.color=vertex.color, edge.color=edge.color, vertex.size=vertex.size, vertex.label.dist=0)
-		}
-		if(label.vertex == "all") 
-		{	
-			V(A)$label <- colnames(adj)
-			tkplot(A, vertex.label=colnames(adj) , layout=layout, vertex.color=vertex.color, edge.color=edge.color, vertex.size=vertex.size, vertex.label.dist=0)  
-		}
-	}
 	
 	# correspondence to the plotG3.R (my local) file.
 	if(vis == "parcor.network"){
@@ -179,6 +124,7 @@ plot.select = function(x, vis= NULL, xlab= NULL, ylab= NULL, n.mem = NULL, verte
 	  if(is.null(layout.tree)) layout.tree = FALSE
 	  if(is.null(root.node)) root.node <- 1
 	  if(is.null(degree.node)) degree.node <- 0
+	  if(is.null(cex.legend)) cex.legend <- 0.8
 	  if(is.null(vertex.color)) vertex.color <- "lightblue3"
 	  
 	  p <- ncol(x$par.cor)
@@ -231,14 +177,145 @@ plot.select = function(x, vis= NULL, xlab= NULL, ylab= NULL, n.mem = NULL, verte
 	  if(edge.width == TRUE) edge.width = E(adj)$weight else edge.width= NULL
 	  
 	  if((!is.null(max.degree)) && (is.null(sel.nod.label)) ) plot(adj, vertex.label=ifelse(degree(adj) >= max.degree, V(adj)$label, NA), layout=layout, edge.curved = curve,  vertex.color=vertex.color, 
-	                                                        vertex.size=vertex.size, layout = layout, vertex.label.color="black", vertex.label.degree =deg , label.degree= deg, vertex.label.dist= vertex.label.dist)
+	                                                               vertex.size=vertex.size, layout = layout, vertex.label.color="black", vertex.label.degree =deg , label.degree= deg, vertex.label.dist= vertex.label.dist)
 	  if((!is.null(sel.nod.label)) && (is.null(max.degree))) plot(adj, edge.label= edge.label, edge.width= edge.width, vertex.label=ifelse(V(adj)$label %in% sel.nod.label, V(adj)$label, NA ), layout=layout, edge.curved = curve,  vertex.color=vertex.color, 
-	                                                       vertex.size=vertex.size, layout = layout, vertex.label.color="black",  vertex.label.degree =deg, label.degree= deg, vertex.label.dist= vertex.label.dist) 
+	                                                              vertex.size=vertex.size, layout = layout, vertex.label.color="black",  vertex.label.degree =deg, label.degree= deg, vertex.label.dist= vertex.label.dist) 
 	  if((is.null(max.degree) ) && (is.null(sel.nod.label))) plot(adj, vertex.label= colnames(par.cor), layout=layout, edge.curved = curve,  vertex.color=vertex.color, 
-	                                                       vertex.size=vertex.size, layout = layout, vertex.label.color="black", vertex.label.degree =deg, label.degree= deg, vertex.label.dist= vertex.label.dist)
+	                                                              vertex.size=vertex.size, layout = layout, vertex.label.color="black", vertex.label.degree =deg, label.degree= deg, vertex.label.dist= vertex.label.dist)
 	  
-	  if(! is.null(E(adj)$lty)) legend("bottomleft", legend=c( ">= 0.90", "0.90-0.65" , "0.65-0.35", "0.35-0.10", "0.10-0.00") , col="black", cex=0.8,  lty= c(1, 6, 5, 2, 3), title=" |partial corr|" )
+	  if(! is.null(E(adj)$lty)) legend(pos.legend, legend=c( ">= 0.90", "0.90-0.65" , "0.65-0.35", "0.35-0.10", "0.10-0.00") , col="black", cex=cex.legend,  lty= c(1, 6, 5, 2, 3), title=" |partial corr|" )
 	  
+	}
+	
+	if(is.null(tk.width))  tk.width <- 1000
+	if(is.null(tk.height)) tk.height <- 1000
+	if(vis == "interactive"){
+		adj <- as.matrix(x$opt.adj)
+		  
+		if(is.null(vertex.size)) vertex.size <- 7
+		if(is.null(label.vertex)) label.vertex <- "all"
+		if(is.null(vertex.color)) vertex.color <- "red"
+		if(is.null(edge.color)) edge.color <- "gray29"
+		if(is.null(sel.nod.label)) sel.nod.label <- NULL
+		if((label.vertex == "some") && (is.null(sel.nod.label )) ) stop("Please select some vertex label(s) or fix label.vertex to either none or all.")
+
+		p <- ncol(adj)
+		A <- graph.adjacency(adj, mode= "undirected")
+		
+				if(is.null(n.mem)) 
+			{
+				memberships = 1
+				#vertex.color = "red"
+		}else{
+			LG = length(n.mem)
+			memberships = NULL
+			i = 1
+			while( i <= LG)
+				{
+					grp <- rep(i, n.mem[i])
+					memberships = c(memberships, grp)
+					i = i + 1
+				}
+			#color <- sample(rainbow(max(memberships)+10, alpha=0.3), max(memberships))
+			#vertex.color = color[memberships]
+			names(memberships) <- colnames(x$opt.adj) #membership network 
+			E(A)$weight=apply(get.edgelist(A), 1, weight.community,memberships, weigth.within= w.btw, weight.between= w.within )#membership network 
+		}
+		
+		if(is.null(n.mem)){
+			#if(is.null(layout)) layout <- layout_with_fr(A)
+			layout	= layout.fruchterman.reingold 
+		}else{
+			layout = layout.fruchterman.reingold(A, weights=E(A)$weight) #membership network 
+		}
+		
+		if(is.null(layout)) layout <- layout_with_fr(A)
+		if(is.null(label.size)) label.size <- 1
+		V(A)$label.cex <- label.size
+	 
+		if(label.vertex == "none")
+		{
+			V(A)$label <- NA
+			tkplot(A, layout=layout, vertex.color=vertex.color, edge.color=edge.color, vertex.size=vertex.size, vertex.label.dist=0, canvas.width = tk.width, canvas.height = tk.height)
+		}
+
+		if(label.vertex == "some") 
+		{
+			V(A)$label <- colnames(adj)
+			tkplot(A, vertex.label=ifelse(V(A)$label %in% sel.nod.label, V(A)$label, NA ), layout=layout, vertex.color=vertex.color, edge.color=edge.color, vertex.size=vertex.size, vertex.label.dist=0, canvas.width = tk.width, canvas.height = tk.height)
+		}
+		if(label.vertex == "all") 
+		{	
+			V(A)$label <- colnames(adj)
+			tkplot(A, vertex.label=colnames(adj) , layout=layout, vertex.color=vertex.color, edge.color=edge.color, vertex.size=vertex.size, vertex.label.dist=0, canvas.width = tk.width, canvas.height = tk.height)  
+		}
+	}
+	
+	if(vis == "parcor.interactive"){
+	  adj <- as.matrix(x$par.cor)
+	  #%adj <- as.matrix(x$opt.adj)
+	  
+	  if(is.null(vertex.size)) vertex.size <- 7
+	  if(is.null(label.vertex)) label.vertex <- "all"
+	  if(is.null(vertex.color)) vertex.color <- "red"
+	  #if(is.null(edge.color)) edge.color <- "gray29"
+	  if(is.null(sel.nod.label)) sel.nod.label <- NULL
+	  if((label.vertex == "some") && (is.null(sel.nod.label )) ) stop("Please select some vertex label(s) or fix label.vertex to either none or all.")
+	  
+	  p <- ncol(adj)
+	  A <- graph.adjacency(adj, weighted=TRUE, diag=FALSE, mode= "lower")
+	  
+	  E(A)$color[(E(A)$weight < 0) ] <-  'darkblue'
+	  E(A)$color[(E(A)$weight > 0) ] <-  'red3'
+	  
+	  if(is.null(n.mem)) 
+	  {
+	    memberships = 1
+	    
+	  }else{
+	    LG = length(n.mem)
+	    memberships = NULL
+	    i = 1
+	    while( i <= LG)
+	    {
+	      grp <- rep(i, n.mem[i])
+	      memberships = c(memberships, grp)
+	      i = i + 1
+	    }
+	    
+	    names(memberships) <- colnames(x$opt.adj)
+	    E(A)$weight=apply(get.edgelist(A), 1, weight.community,memberships, weigth.within= w.btw, weight.between= w.within )#membership network 
+	  }
+	  
+	  if(is.null(n.mem)){
+	    layout	<- layout.fruchterman.reingold 
+	  }else{
+	    #layout = layout.fruchterman.reingold(A, weights=E(A)$weight) #membership network 
+	    layout <- layout_with_kk(A)
+	  }
+	  if(is.null(temp)) temp <- sqrt(vcount(A))
+	  if(is.null(iterl)) iterl <- 500
+	  if(is.null(layout)) layout <- layout_with_fr(A, coords = NULL, dim = 2, niter = iterl, start.temp = temp,  weights= E(A)$weight)
+	  if(is.null(label.size)) label.size <- 1
+	  V(A)$label.cex <- label.size
+	  
+	  if(label.vertex == "none")
+	  {
+	    V(A)$label <- NA
+	    tk <- tkplot(A, layout=layout, vertex.color=vertex.color, edge.color=edge.color, vertex.size=vertex.size, vertex.label.dist=0, canvas.width = tk.width, canvas.height = tk.height)  
+	  }
+	  
+	  if(label.vertex == "some") 
+	  {
+	    V(A)$label <- colnames(adj)
+	    tk <- tkplot(A, vertex.label=ifelse(V(A)$label %in% sel.nod.label, V(A)$label, NA ), layout=layout, vertex.color=vertex.color, vertex.size=vertex.size, vertex.label.dist=0, canvas.width = tk.width, canvas.height = tk.height)
+	  }
+	  if(label.vertex == "all") 
+	  {	
+	    V(A)$label <- colnames(adj)
+	    tk <- tkplot(A, vertex.label=colnames(adj) , layout=layout, vertex.color=vertex.color, edge.color=edge.color, vertex.size=vertex.size, vertex.label.dist=0 , canvas.width = tk.width, canvas.height = tk.height)  
+	  }
+	  #return(tkplot.getcoords(tk))
 	}
 }
 

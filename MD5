@@ -1,4 +1,4 @@
-368f1f05ec6441278e0f2d03a00197c7 *DESCRIPTION
+82d266062cde2095d60d4b3ea0a1b2ab *DESCRIPTION
 9cf45c82e12f350d1e27acd055c828a4 *NAMESPACE
 cbf0976a3ae75df81cbe7cc10d45281e *R/Gibbs_method.R
 5992dae872e70c4679c1d03aa700a81b *R/R.approx.R
@@ -17,12 +17,12 @@ ba885fb883d79f343983dda1f1104219 *R/initialize.R
 dde0528535b8c64ee785b053f633d633 *R/lower.upper.R
 5de1b1aa547355b083671dcb1d1de0bf *R/model.selection.R
 b5965782c1e3928764bb078aa09f4787 *R/netgwas2cross.R
-b0b6bb08a2f21a78d1977045389ea893 *R/netmap.R
-b7afbd22728e3c444dd787b88be68727 *R/netphenogeno.R
-031451f9a5ae5b57d8ec2f73afd33ae0 *R/netsnp.R
+44fdfa4f378243b81225182f430dbbf5 *R/netmap.R
+28a19ac93911a277b0f829789c011956 *R/netphenogeno.R
+881950a4d7c8291ae8aa39f7e34f7eaa *R/netsnp.R
 6ec2a6f3a88e7d769f3203ae46b6fa5e *R/npn.R
 6bdb476accdad9a870b4443508e7ba27 *R/rmvt.R
-d634877c99e0eae69a58aa3dac554086 *R/selectnet.R
+1a770f6537492bb2dc4922b7727ef5ed *R/selectnet.R
 3b8f5df9a11af7348ad48f70aa47b912 *R/simRIL.R
 f6b9153576872f94a3cd8a4acafe635f *R/simgeno.R
 73d9ee937fa9bceebde6ec64572cd68d *data/CviCol.RData
@@ -50,7 +50,7 @@ af171beb50eefdbf73cdffc4af1edcc6 *man/cutoffs.Rd
 8443d362fe97f9c8de1530a00dd757d8 *man/netsnp.Rd
 3c9ed661a8eb70d13e74ef44ba38adaa *man/plot.netgwas.Rd
 d56aa3d193d41ffcab0747721fd199d5 *man/plot.netgwasmap.Rd
-c04d6efb8daa7b069483078f74efc1dc *man/plot.select.Rd
+2e5082162f48dc9a8ec2cf1f72319981 *man/plot.select.Rd
 603399a85d8ba4e59415dd6e90dfd5ae *man/plot.simGeno.Rd
 8a935f937cce8137ebd568102f848582 *man/print.netgwas.Rd
 ed1c719183a628b4a84ebf6d0c7351a3 *man/print.netgwasmap.Rd

@@ -9,6 +9,7 @@
 
 netmap = function(data, method = "npn", cross= NULL, rho = NULL, n.rho = NULL, rho.ratio = NULL, min.m= NULL, use.comu= FALSE, ncores = "all", em.iter = 5, verbose = TRUE) 
 {
+  gcinfo(FALSE)
 	if(is.null(cross)) stop("the argument cross should be fill in either as \"inbred\" or \"outbred\" \n")
 	if(!is.matrix(data)) data <- as.matrix(data)
 	if(ncores == "all") ncores <- detectCores() - 1
@@ -248,17 +249,19 @@ plot.netgwasmap = function(x, vis= NULL, layout= NULL, vertex.size= NULL, label.
 			tkplot(A, vertex.label=colnames(adj) , layout=layout, vertex.color=vertex.color, edge.color=edge.color, vertex.size=vertex.size, vertex.label.dist=0)  
 		}	
 	}
+	
 	if(vis == "unordered markers") 
 	{
-		opt.theta <- x$allres$Theta[[x$opt.index]]
-		image(Matrix(opt.theta), xlab="markers", ylab="markers", main="Unordered markers", cex=1, sub= "")
+	  opt.theta <- x$allres$Theta[[x$opt.index]]
+	  print(image(Matrix(opt.theta), xlab="markers", ylab="markers", main="Unordered markers", cex=1, sub= ""))
 	}
+
 	if(vis == "ordered markers") 
 	{
-		opt.theta <- x$allres$Theta[[x$opt.index]]
-		rownames(opt.theta)  <- colnames(opt.theta) 
-		orderedm <- opt.theta[colnames(x$allres$data)  , colnames(x$allres$data) ]
-		image(orderedm,  xlab="markers", ylab="markers", main="Ordered markers", cex=1, sub="")
+	  opt.theta <- x$allres$Theta[[x$opt.index]]
+	  rownames(opt.theta)  <- colnames(opt.theta) 
+	  orderedm <- opt.theta[colnames(x$allres$data)  , colnames(x$allres$data) ]
+	  print(image(orderedm,  xlab="markers", ylab="markers", main="Ordered markers", cex=1, sub=""))
 	}
 	
 }
@@ -276,5 +279,5 @@ print.netgwasmap = function(x, ...){
 	cat("To visualize the associated network consider plot(<YOUR OUTPUT NAME>) \n")
 	cat("----------------------- \n")
 	cat("To visualize the other associated networks consider plot(<YOUR OUTPUT NAME>$allres) \n")
-	cat("To build a linkage map for your desired network consider builMap() function \n")
+	cat("To build a linkage map for your desired network consider buildMap() function \n")
 }

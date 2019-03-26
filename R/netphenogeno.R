@@ -10,7 +10,7 @@
 
 netphenogeno = function(data, method = "gibbs", rho = NULL, n.rho = NULL, rho.ratio = NULL, ncores = 1, em.iter = 5, em.tol = .001, verbose = TRUE) 
 {
-
+  gcinfo(FALSE)
 	if(!is.matrix(data)) data <- as.matrix(data)
 	if(ncores == "all") ncores <- detectCores() - 1
 	if(is.null(em.iter)) em.iter = 5
