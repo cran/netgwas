@@ -57,7 +57,9 @@ plot.select = function(x, vis= NULL, xlab= NULL, ylab= NULL, n.mem = NULL, verte
 	if(is.null(vis)) vis <-  "CI"
 	if(is.null(xlab)) xlab <- "variables"
 	if(is.null(ylab)) ylab <- "variables"
-
+	plot.new()
+	par(mfrow= c(1,1))
+	
 	if(vis == "image.parcorMatrix") print(image(Matrix(x$par.cor), xlab=xlab, ylab=ylab, main= "partial correlation matrix", sub="") )
 	if(vis == "image.adj") print(image(Matrix(x$opt.adj), xlab=xlab, ylab=ylab, main= "adjacency matrix", sub=""))
 	if(vis == "image.precision") print(image(Matrix(x$opt.theta), xlab=xlab, ylab=ylab, main= "precision matrix", sub="")) 

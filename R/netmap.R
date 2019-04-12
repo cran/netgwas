@@ -195,7 +195,8 @@ plot.netgwasmap = function(x, vis= NULL, layout= NULL, vertex.size= NULL, label.
 		adj$label.cex <- label.size
 		if(label.vertex == "all") vertex.label <- colnames(opt.theta) #else{vertex.label <- NA}
 		if(is.null(layout)) layout <- layout.fruchterman.reingold
-
+    
+		par(mfrow=c(1,1))
 		split.screen( figs = c( 1, 2 ) )
 		split.screen( figs = c( 1, 1 ), screen = 1 )
 		split.screen( figs = c( 2, 1 ), screen = 2 )

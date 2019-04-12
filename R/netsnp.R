@@ -33,7 +33,7 @@ if( method == "gibbs" ||  method== "approx" )
 		{
 		if(verbose)
 		{
-			m <- paste(c("Reconstructing inta- and inter- chromosomal interactions network is in progress:", floor(100 * chain/n.rho), "%"), collapse="")
+			m <- paste(c("Reconstructing intra- and inter- chromosomal interactions network is in progress:", floor(100 * chain/n.rho), "%"), collapse="")
 			cat(m, "\r")
 			flush.console()
 		}
@@ -74,7 +74,7 @@ if( method == "gibbs" ||  method== "approx" )
 		{
 		if(verbose)
 			{
-				m <- paste(c("Reconstructing inta- and inter- chromosomal interactions network is in progress:", floor(100 * chain/n.rho), "%"), collapse="")
+				m <- paste(c("Reconstructing intra- and inter- chromosomal interactions network is in progress:", floor(100 * chain/n.rho), "%"), collapse="")
 				cat(m, "\r")
 				flush.console()
 			}
@@ -107,7 +107,7 @@ if( method == "gibbs" ||  method== "approx" )
 	}
 	rm(est)
 	
-	cat("Reconstructing inta- and inter- chromosomal interactions network done.    \n")
+	cat("Reconstructing intra- and inter- chromosomal interactions network done.    \n")
 }else{
 	if( method == "npn" ){
 	

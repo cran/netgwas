@@ -1,7 +1,7 @@
 Package: netgwas
 Type: Package
 Title: Network-Based Genome Wide Association Studies
-Version: 1.9
+Version: 1.10
 Author: Pariya Behrouzi <https://orcid.org/0000-0001-6762-5433> and Ernst C. Wit
 Maintainer: Pariya Behrouzi <pariya.behrouzi@gmail.com>
 Depends: R (>= 3.1.0)
@@ -23,8 +23,8 @@ Description: A multi-core R package that contains a set of tools based on undire
 			 <arXiv:1710.01063>. 
              NOTICE proper functionality of 'netgwas' requires that the 'RBGL' package is installed from 'bioconductor'; for installation instruction please refer to the 'RBGL' web page given below.
 License: GPL-3
-Date: 2019-03-26
+Date: 2019-04-12
 NeedsCompilation: no
-Packaged: 2019-03-26 14:50:41 UTC; behro001
+Packaged: 2019-04-12 13:36:47 UTC; behro001
 Repository: CRAN
-Date/Publication: 2019-03-26 15:10:11 UTC
+Date/Publication: 2019-04-12 14:02:43 UTC
