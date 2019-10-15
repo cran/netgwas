@@ -1,30 +1,29 @@
 Package: netgwas
 Type: Package
 Title: Network-Based Genome Wide Association Studies
-Version: 1.10
+Version: 1.11
 Author: Pariya Behrouzi <https://orcid.org/0000-0001-6762-5433> and Ernst C. Wit
 Maintainer: Pariya Behrouzi <pariya.behrouzi@gmail.com>
 Depends: R (>= 3.1.0)
 Imports: Matrix, igraph, qtl, parallel, methods, glasso, MASS, RBGL,
         huge,tmvtnorm
 Suggests: testthat
-Description: A multi-core R package that contains a set of tools based on undirected graphical
-             models for accomplishing three important and interrelated goals in genetics: (1) 
-			 linkage map construction, (2) reconstructing intra- and inter-chromosomal conditional
-			 interactions (linkage disequilibrium) networks, and (3) exploring high-dimensional 
-			 genotype-phenotype network and genotype-phenotype-environment interactions network. 
-			 We use conditional independence relationships between variables. 
+Description: A multi-core R package that contains a set of tools based on copula graphical
+             models for accomplishing the three interrelated goals in genetics and genomics in an
+			 unified way: (1) linkage map construction, (2) constructing linkage disequilibrium
+			 networks, and (3) exploring high-dimensional genotype-phenotype network and genotype-
+			 phenotype-environment interactions networks. 
 			 The netgwas package can deal with biparental inbreeding and outbreeding species with
 			 any ploidy level, namely diploid (2 sets of chromosomes), triploid (3 sets of chromosomes),
 			 tetraploid (4 sets of chromosomes) and so on. We target on high-dimensional data where 
-			 number of variables p is larger than number of sample sizes (p >> n). The computations 
-			 is memory-optimized using the sparse matrix output. The package is implemented the recent
-			 developments in Behrouzi and Wit (2017) <doi:10.1111/rssc.12287> and Behrouzi and Wit (2017)
-			 <arXiv:1710.01063>. 
+			 number of variables p is considerably larger than number of sample sizes (p >> n). 
+			 The computations is memory-optimized using the sparse matrix output. The package is 
+			 implemented the recent methodological developments in Behrouzi and Wit (2017) <doi:10.1111/rssc.12287> 
+			 and Behrouzi and Wit (2017) <doi:10.1093/bioinformatics/bty777>. 
              NOTICE proper functionality of 'netgwas' requires that the 'RBGL' package is installed from 'bioconductor'; for installation instruction please refer to the 'RBGL' web page given below.
 License: GPL-3
-Date: 2019-04-12
+Date: 2019-10-14
 NeedsCompilation: no
-Packaged: 2019-04-12 13:36:47 UTC; behro001
+Packaged: 2019-10-15 09:03:50 UTC; behro001
 Repository: CRAN
-Date/Publication: 2019-04-12 14:02:43 UTC
+Date/Publication: 2019-10-15 15:00:02 UTC

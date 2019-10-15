@@ -137,7 +137,7 @@ if( method == "gibbs" ||  method== "approx" )
 		result$path   = est$path
 		result$rho	  = est$lambda
 		result$loglik = n/2 * (est$loglik)
-		result$data	  = est$data
+		result$data	  = data
 		rm(est)
 		if(verbose)
 		{
