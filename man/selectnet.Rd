@@ -46,6 +46,7 @@ An obj with S3 class "selectnet" is returned:
  \item{opt.index}{ The index of optimal regularization parameter. }
  \item{opt.rho}{ The selected regularization parameter. }
  \item{par.cor}{ A partial correlation matrix. }
+ \item{V.names}{ Variables name whose are not isolated. }
  
 and anything else that is included in the input \code{netgwas.obj}.
  }
@@ -84,12 +85,12 @@ and anything else that is included in the input \code{netgwas.obj}.
 
 		#different graph selection methods
 		sel.ebic1 <- selectnet(out, criteria = "ebic")
-		plot(sel.ebic1)
+		plot(sel.ebic1, vis = "CI")
 
 		sel.aic <- selectnet(out, criteria = "aic")
-		plot(sel.aic)
+		plot(sel.aic, vis = "CI")
 
 		sel.bic <- selectnet(out, criteria = "ebic", ebic.gamma = 0)
-		plot(sel.bic)
+		plot(sel.bic, vis = "CI")
 	}
 }

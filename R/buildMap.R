@@ -1,6 +1,6 @@
 #-------------------------------------------------------------------------------#
 # Package: Network-Based Genome-Wide Association Studies                        #
-# buildMap(): build a one-dimensional map from netgwasmap object    			#
+# buildMap(): build a one-dimensional map from netgwasmap object    	      		#
 # Author: Pariya Behrouzi                                                       #
 # Emails: <pariya.Behrouzi@gmail.com>                                           #
 # Date: Nov 21th 2017                                                           #

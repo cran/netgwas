@@ -109,6 +109,8 @@ simgeno = function( p = 90, n = 200, k = NULL, g = NULL, adjacent = NULL, alpha 
 		gc()
     }
 	z <- z - 1
+	
+	colnames(z) <- colnames(A)
 	simulation <- list( data=z, Theta=theta, adj=Matrix(A, sparse=TRUE), Sigma=sigma, n.groups=g, groups=g.ind, sparsity= sum(A)/(p*(p-1)))
   
 	class(simulation) = "simgeno"

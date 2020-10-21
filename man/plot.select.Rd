@@ -13,8 +13,8 @@ Plot the optimal graph by model selection
 edge.color= "gray29", sel.nod.label= NULL, label.size = NULL, w.btw= 800,
  w.within = 10, sign.edg= TRUE, edge.width= NULL, edge.label= NULL,
 max.degree= NULL, layout.tree= NULL, root.node= NULL, degree.node= NULL,  
-curve= FALSE, pos.legend= "bottomleft", cex.legend= 0.8, iterl = NULL, temp = NULL,
-tk.width = NULL, tk.height= NULL)
+curve= FALSE, delet.v =TRUE, pos.legend= "bottomleft", cex.legend= 0.8, 
+iterl = NULL, temp = NULL, tk.width = NULL, tk.height= NULL)
 }
 
 \arguments{
@@ -43,6 +43,7 @@ Also, there are 3 options to visulaze the selected graph as a matrix: (i) \code{
 	\item{root.node}{Optional. ONLY applicable when \code{vis}= "parcor.network". The index of the root vertex or root vertices. If this is a non-empty vector then the supplied vertex ids are used as the roots of the trees . If it is an empty vector, then the root vertices are automatically calculated based on topological sorting, performed with the opposite mode than the mode argument. After the vertices have been sorted, one is selected from each component.}
 	\item{degree.node}{Optional. ONLY applicable when \code{vis}= "parcor.network". It is related to the vertex label degree. It controls the position of the labels with respect to the vertices. Value are for example -pi/2, 0, pi/2, pi sets above, to the right, below, to the left of a node, respectively.}
 	\item{curve}{Optional. ONLY applicable when \code{vis}= "parcor.network". Edge curvature, range between 0 and 1 (FALSE sets it to 0, TRUE to 0.5). Default is FALSE.}
+	\item{delet.v}{ Delete vertices with no edges. Default is "TRUE".}
 	\item{pos.legend}{Applicable when \code{vis}= "parcor.network" or \code{vis}= "CI". The x and y co-ordinates to be used to position the legend. They can be specified by keywords like "topright", "topleft", and etc. Default is "bottomleft".}
 	\item{cex.legend}{Applicable when \code{vis}= "parcor.network" or \code{vis}= "CI".}
 \item{iterl}{Optional. ONLY applicable when \code{vis}= "parcor.interactive". integer scalar, the number of iterations to perform for layout_with_fr layout.}

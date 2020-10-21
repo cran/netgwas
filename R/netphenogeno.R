@@ -16,10 +16,11 @@ netphenogeno = function(data, method = "gibbs", rho = NULL, n.rho = NULL, rho.ra
 	if(is.null(em.iter)) em.iter = 5
 	if(is.null(em.tol)) em.tol = 0.001
 	
+	
+	data <-cleaning.dat(data)
 	n = nrow(data)
 	p = ncol(data)
 	result = list()
-	data <-cleaning.dat(data)
 	
 if( method == "gibbs" ||  method== "approx" ) 
 {	

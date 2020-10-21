@@ -268,17 +268,17 @@ plot.netgwasmap = function(x, vis= NULL, layout= NULL, vertex.size= NULL, label.
 }
 
 #-----------------------------------------------------#
-#   		Summary for class "netgwasmap"            #
+#   		Summary for class "netgwasmap"                #
 #-----------------------------------------------------#
 print.netgwasmap = function(x, ...){
 	cat("Number of linkage groups: ", length(unique(sort(x$map[,2]))), "\n")
 	cat("Number of markers per linkage group: ", table(x$map[, 2]), "\n")
 	cat("Total number of markers in the linkage map:", length(x$map[,1]),".", " (", (ncol(x$allres$Theta[[1]]) - length(x$map[,1])), " markers removed from the input genotype data) \n")
 	cat("Number of sample size: n =", nrow(x$allres$data), "\n")
-	cat("Number of categories in data:", length(unique(sort(as.matrix(x$allres$data))))," (" , unique(sort(as.matrix(x$allres$data))), ")", "\n")
-	cat("The estimated linkage map is inserted in <YOUR OUTPUT NAME>$map \n")
-	cat("To visualize the associated network consider plot(<YOUR OUTPUT NAME>) \n")
+	cat("Number of categories in dataset:", length(unique(sort(as.matrix(x$allres$data))))," (" , unique(sort(as.matrix(x$allres$data))), ")", "\n")
+	cat("The estimated linkage map is inserted in <OUTPUT NAME>$map \n")
+	cat("To visualize the network consider plot(<OUTPUT NAME>) \n")
 	cat("----------------------- \n")
-	cat("To visualize the other associated networks consider plot(<YOUR OUTPUT NAME>$allres) \n")
+	cat("To visualize the other associated networks consider plot(<OUTPUT NAME>$allres) \n")
 	cat("To build a linkage map for your desired network consider buildMap() function \n")
 }
