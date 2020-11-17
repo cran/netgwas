@@ -204,18 +204,18 @@ plot.netgwasmap = function(x, vis= NULL, layout= NULL, vertex.size= NULL, label.
 		plot(adj, layout=layout, edge.curved = F, vertex.label= vertex.label, vertex.color=vertex.color, edge.color="gray40", vertex.size=vertex.size, vertex.label.dist=0, vertex.label.color="darkblue", main="Network")
 		screen(4)
 		#image(path, col = gray.colors(256), xaxt="n", yaxt="n", main= "Conditional dependence relationships \nbefore ordering", cex.main=.8, cex.lab=.8, cex.axis=.8)
-		image(path, col = c("white", "black"), xaxt="n", yaxt="n", main= "Conditional dependence relationships \nbefore ordering", cex.main=.8, cex.lab=.8, cex.axis=.8)
-		title(ylab = "markers", cex.lab = 1, line = .5)
-		title(xlab = "markers", cex.lab = 1, line = .5)
+		image(path, col = c("white", "black"), xaxt="n", yaxt="n", main= "Before ordering markers", cex.main=1.5, cex.lab=1.5, cex.axis=1.5)
+		title(ylab = "markers", cex.lab = 1.5, line = .5)
+		title(xlab = "markers", cex.lab = 1.5, line = .5)
 
 		index <- as.character(x$map[ ,1])
 		rownames(path) <- colnames(path)
 		path.After <- path[c(index), c(index)] 
 		screen(5)
 		#image(path.After, col = gray.colors(256), xaxt="n", yaxt="n", ,main="Conditional dependence relationships \nafter ordering", cex.main=0.8, cex.lab=.8, cex.axis=.8)
-		image(path.After, col = c("white", "black"), xaxt="n", yaxt="n", ,main="Conditional dependence relationships \nafter ordering", cex.main=0.8, cex.lab=.8, cex.axis=.8)
-		title(ylab = "markers", cex.lab = 1, line = .5)
-		title(xlab = "markers", cex.lab = 1, line = .5)
+		image(path.After, col = c("white", "black"), xaxt="n", yaxt="n", ,main="After ordering markers", cex.main=1.5, cex.lab=1.5, cex.axis=1.5)
+		title(ylab = "markers", cex.lab = 1.5, line = .5)
+		title(xlab = "markers", cex.lab = 1.5, line = .5)
 	}
 	if(vis == "interactive")
 	{
@@ -254,17 +254,20 @@ plot.netgwasmap = function(x, vis= NULL, layout= NULL, vertex.size= NULL, label.
 	if(vis == "unordered markers") 
 	{
 	  opt.theta <- x$allres$Theta[[x$opt.index]]
-	  print(image(Matrix(opt.theta), xlab="markers", ylab="markers", main="Unordered markers", cex=1, sub= ""))
+	  print(image(Matrix(opt.theta), xlab="markers", ylab="markers", main="Unordered markers", cex= 3, sub= ""))
 	}
 
 	if(vis == "ordered markers") 
 	{
 	  opt.theta <- x$allres$Theta[[x$opt.index]]
 	  rownames(opt.theta)  <- colnames(opt.theta) 
-	  orderedm <- opt.theta[colnames(x$allres$data)  , colnames(x$allres$data) ]
-	  print(image(orderedm,  xlab="markers", ylab="markers", main="Ordered markers", cex=1, sub=""))
+	  
+	  #orderedm <- Matrix( opt.theta[colnames(x$allres$data)  , colnames(x$allres$data) ] )
+	  map <- as.character(x$map[ ,1])
+	  orderedm <- Matrix( opt.theta[ map  , map  ] )
+	 
+	  print(image(orderedm,  xlab="markers", ylab="markers", main="Ordered markers", cex= 3, sub=""))
 	}
-	
 }
 
 #-----------------------------------------------------#

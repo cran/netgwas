@@ -1,4 +1,4 @@
-b28241192b9de2d13a1a107879883b43 *DESCRIPTION
+2a13393bb924901e8d62e20fd2645730 *DESCRIPTION
 9cf45c82e12f350d1e27acd055c828a4 *NAMESPACE
 cbf0976a3ae75df81cbe7cc10d45281e *R/Gibbs_method.R
 5992dae872e70c4679c1d03aa700a81b *R/R.approx.R
@@ -17,7 +17,7 @@ ba885fb883d79f343983dda1f1104219 *R/initialize.R
 dde0528535b8c64ee785b053f633d633 *R/lower.upper.R
 5de1b1aa547355b083671dcb1d1de0bf *R/model.selection.R
 b5965782c1e3928764bb078aa09f4787 *R/netgwas2cross.R
-52a5f5abec871d910b51757bd3f7f7bc *R/netmap.R
+54af5924a7cf91bd454c816178db4afb *R/netmap.R
 576e349be0fe5cf76bd1d66a7f5e4b47 *R/netphenogeno.R
 21aaabea3b3f8554e15f97bd0f5aefed *R/netsnp.R
 6ec2a6f3a88e7d769f3203ae46b6fa5e *R/npn.R
