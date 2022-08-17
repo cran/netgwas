@@ -57,7 +57,7 @@ plot.select = function(x, vis= NULL, xlab= NULL, ylab= NULL, n.mem = NULL, verte
                   sign.edg= TRUE, edge.width= NULL, edge.label= NULL,  max.degree= NULL, layout.tree= NULL, root.node= NULL, degree.node= NULL, curve= FALSE, delet.v =TRUE, pos.legend= "bottomleft", cex.legend= 0.8, iterl = NULL, temp = NULL, tk.width = NULL, tk.height= NULL)
   #plot.select = function(x, vis= NULL, xlab= NULL, ylab= NULL, n.mem = NULL, vertex.label = FALSE, ..., layout = NULL, label.vertex = "all", vertex.size = NULL, vertex.color = "red" , edge.color = "gray29", sel.nod.label = NULL, label.size = NULL, w.btw= 800, w.within = 10)
 {
-	if(class(x) != "select") stop("The input of this plot function should be from \"select\" class (More info in: selectnet( ) ). \n")
+	if(! inherits( x, "select" )) stop("The input of this plot function should be from \"select\" class (More info in: selectnet( ) ). \n")
 	if(is.null(vis)) vis <-  "CI"
 	if(is.null(xlab)) xlab <- "variables"
 	if(is.null(ylab)) ylab <- "variables"

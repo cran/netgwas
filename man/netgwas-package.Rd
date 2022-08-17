@@ -45,11 +45,6 @@ Maintainers: Pariya Behrouzi \email{pariya.behrouzi@gmail.com} \cr
 
 \examples{
 \dontrun{
-# Notice: first install 'RBGL' from Bioconductor for the proper functionality of 'netgwas'
-source("https://bioconductor.org/biocLite.R")
-biocLite("RBGL")
-
-
 install.packages("netgwas")
 library(netgwas)
 }

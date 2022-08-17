@@ -6,7 +6,8 @@
 #-------------------------------------------------------------------------------#
 model.selection = function( result, criterion, lower.upper, ebic.gamma = 0.5,  ncores = 1, loglik_Y=TRUE, verbose = TRUE)
 {
-	if(class(result) == "netgwas") 
+	#if(class(result) == "netgwas") 
+	if( inherits(result, "netgwas") )  
 	{
 		p	 = ncol(result$path[[1]])
 		nrho = length(result$rho)

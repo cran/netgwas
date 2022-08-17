@@ -33,4 +33,4 @@ importFrom( "stats", "cor", "dnorm", "pnorm", "qnorm", "runif", "rnorm", "rchisq
 importFrom( "utils", "flush.console")
 importFrom( "huge", "huge")
 importFrom( "MASS", "sammon")
-importFrom( "RBGL", "cuthill.mckee.ordering")
+

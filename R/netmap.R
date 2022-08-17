@@ -163,7 +163,7 @@ if( method == "gibbs" ||  method== "approx" )
 
 	result$data <- result$data[ , c(as.character(map[,1]))]
 	if(cross == "outbred") map <- data.frame(map) #added due to cross obj as.cross fun (can be removed later)
-	results <- list( map= map, opt.index= sel.net$opt.index, cross.typ= cross, allres= result)
+	results <- list( map= map, opt.index= sel.net$opt.index, cross.typ= cross, allres= result, man= FALSE)
 	
 	class(results$allres) = "netgwas"
 	class(results) = "netgwasmap"
@@ -178,7 +178,7 @@ if( method == "gibbs" ||  method== "approx" )
 #-----------------------------------------------------#
 plot.netgwasmap = function(x, vis= NULL, layout= NULL, vertex.size= NULL, label.vertex = "none", label.size= NULL, vertex.color= NULL, edge.color = "gray29", sel.ID = NULL, ...)
 {
-	if(class(x) != "netgwasmap") stop("netgwas.object should belong to the netgwas class. \n ")
+    if(! inherits( x, "netgwasmap" )) stop("netgwas.object should belong to the netgwas class. \n ")
 	if(is.null(vis)) vis <- "summary"
 	if(is.null(label.vertex)) label.vertex <- "none"
 	if(vis == "summary")
@@ -283,5 +283,5 @@ print.netgwasmap = function(x, ...){
 	cat("To visualize the network consider plot(<OUTPUT NAME>) \n")
 	cat("----------------------- \n")
 	cat("To visualize the other associated networks consider plot(<OUTPUT NAME>$allres) \n")
-	cat("To build a linkage map for your desired network consider buildMap() function \n")
+	if(x$man == FALSE) cat("To build a linkage map for your desired network consider buildMap() function \n")
 }

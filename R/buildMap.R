@@ -65,9 +65,12 @@ buildMap.internal = function( network, cross, num.iso.m, use.comu )
 				if(length(unique(adj[upper.tri(adj)])) == 1) adj[1,2] <- adj[2,1] <- 0  #full graph
 			
 				adj <- graphAM(adj)
-				cuthill <- cuthill.mckee.ordering(adj)
-				ord[[lg]] <- cuthill$`reverse cuthill.mckee.ordering`
-				ind <- match(cuthill$`reverse cuthill.mckee.ordering`, colnames(th.LG))
+                cuthill <- cuthill_mckee(adj)
+				ord[[lg]] <- colnames(cuthill)
+				ind <- match(colnames(cuthill), colnames(th.LG))
+				#cuthill <- cuthill.mckee.ordering(adj)
+				#ord[[lg]] <- cuthill$`reverse cuthill.mckee.ordering`
+				#ind <- match(cuthill$`reverse cuthill.mckee.ordering`, colnames(th.LG))
 				th.map[[lg]]  <- th.LG[ind, ind]
 				LG[[lg]] <- rep(lg, length(ind))
 			}
@@ -79,7 +82,8 @@ buildMap.internal = function( network, cross, num.iso.m, use.comu )
 
 buildMap = function(res, opt.index, min.m = NULL, use.comu = FALSE){
 	
-	if(class(res) == "netgwasmap") 
+	#if(class(res) == "netgwasmap")
+  if( inherits(res, "netgwasmap") )
 	{
 		if( is.null(opt.index)) stop("opt.index needs to be specified! \n")
 		if( is.null(use.comu)) use.comu <- FALSE
@@ -134,16 +138,19 @@ buildMap = function(res, opt.index, min.m = NULL, use.comu = FALSE){
 				rownames(th.LG) <- colnames(th.LG)
 				adj <- as.matrix(abs(sign(th.LG)) - diag(ncol(th.LG)))
 				if(length(unique(adj[upper.tri(adj)])) == 1) adj[1,2] <- adj[2,1] <- 0
-				adj <- graphAM(adj)
-				cuthill <- cuthill.mckee.ordering(adj)
-				ord[[lg]] <- cuthill$`reverse cuthill.mckee.ordering`
-				ind <- match(cuthill$`reverse cuthill.mckee.ordering`, colnames(th.LG))
+                cuthill <- cuthill_mckee(adj)
+                ord[[lg]] <- colnames(cuthill)
+				ind <- match(colnames(cuthill), colnames(th.LG))
+                #adj <- graphAM(adj)
+				#cuthill <- RBGL :: cuthill.mckee.ordering(adj)
+				#ord[[lg]] <- cuthill$`reverse cuthill.mckee.ordering`
+				#ind <- match(cuthill$`reverse cuthill.mckee.ordering`, colnames(th.LG))
 				th.map[[lg]]  <- th.LG[ind, ind]
 				LG[[lg]] <- rep(lg, length(ind))
 			}
 			map <- cbind(markers= unlist(ord), LG= unlist(LG))
 		}
-		results <- list(map= map, opt.index= opt.index, cross= cross, allres= res$allres)
+		results <- list(map= map, opt.index= opt.index, cross= cross, allres= res$allres, man= TRUE)
 		class(results$allres) = "netgwas"
 		class(results) = "netgwasmap"
 		return(results)
@@ -151,6 +158,33 @@ buildMap = function(res, opt.index, min.m = NULL, use.comu = FALSE){
 		stop("netgwasmap.object should belong to the netgwasmap class. \n ")
 	}
 }
+
+#' Cuthill McKee (CM) algorithm
+#' 
+#' Transform sparse matrix into a band matrix
+#' netprioR ::: cuthill_mckee()
+#' @author Fabian Schmich
+#' @import Matrix
+#' @param x Input matrix
+#' @return Band matrix
+cuthill_mckee <- function(x) {
+  degs <- data.frame(Idx=1:ncol(x), NonZero=apply(x, 1, function(x) length(which(x != 0))))
+  R <- degs$Idx[which.min(degs$NonZero)]
+  i <- 1
+  for (i in 1:ncol(x)) {
+    Ai <- setdiff(which(x[R[i],] != 0), R)
+    if (length(Ai) > 0) {
+      Ai <- Ai[order(degs$NonZero[Ai], decreasing = FALSE)]
+      R <- append(R, Ai)
+    } else {
+      R <- append(R, degs$Idx[-R][which.min(degs$NonZero[-R])])
+    }
+    i <- i + 1
+  }
+  rR <- rev(R)
+  return(x[rR, rR])
+}
+
 
 #### Check for invariant and markers#####
 cleaning.dat = function(dat){

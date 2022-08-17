@@ -28,6 +28,7 @@ An object with S3 class \code{"netgwasmap"} is returned:
  \item{opt.index}{ The index of a desired 3-D map to construct linkage map.}
  \item{cross}{The specified cross type by user. }
  \item{allres}{ A list containing results for different regularization parameter. Belongs to class "netgwas". To visualize a path of different 3D maps consider function \code{\link{plot.netgwas}}. Note that the input data is reordered based on the estimated linkage map and is saved as data in this argument.}
+ \item{man}{stays TRUE.}
 }
 
 \references{
