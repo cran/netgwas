@@ -57,8 +57,8 @@ An object with S3 class \code{"netgwasmap"} is returned:
 \dontrun{
 data(CviCol)
 #Randomly change the order of markers across the genome
-cvicol <- CviCol[ ,sample(1:ncol(CviCol), ncol(CviCol), replace=FALSE)]
-
+cvicol <- CviCol[ ,sample(ncol(CviCol))]
+ 
 #Constructing linkage map using gibbs method
 out <- netmap(cvicol, cross= "inbred", ncores=1); out
 #Estimated linkage map

@@ -26,7 +26,7 @@ Massa, Alicia N., Norma C. Manrique-Carpintero, Joseph J. Coombs, Daniel G. Zark
 \donttest{
 data(tetraPotato)
 #Shuffle the order of markers
-potato <- tetraPotato[ ,sample(1:ncol(tetraPotato), ncol(tetraPotato), replace=FALSE)] 
+potato <- tetraPotato[ , sample(ncol(tetraPotato))]
 #Constructing linkage map for tetraploid potato
 out <- netmap(potato, cross = "outbred"); out
 potato.map <- out$map; potato.map

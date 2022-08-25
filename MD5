@@ -1,10 +1,10 @@
-c9ce1cea4a2d1fd6ad0096ebaef0fdd4 *DESCRIPTION
+4018ac8e06a1e1df99bbebe2f00c8f89 *DESCRIPTION
 eb65d0e36a43f298753e3c89d7cf4750 *NAMESPACE
 cbf0976a3ae75df81cbe7cc10d45281e *R/Gibbs_method.R
 5992dae872e70c4679c1d03aa700a81b *R/R.approx.R
 5c111063a9be1d31f57771eb2903b264 *R/R.gibbs.R
 b58f15685bf3c1f3fbff2606659e176a *R/approx_method.R
-be9ee7daa043cf6ad21e4f323b99ea2a *R/buildMap.R
+b93ca99fbee8dcb1e826dbf606d6ac91 *R/buildMap.R
 ec7f7ec69599600a317089a1e9de14bb *R/cal.pos.R
 ba4cf38bae86fd40ea9e9f755ab950d7 *R/calculate_EM_Gibbs.R
 abb5adf8963e7f7ec9fa3a871b1d37ab *R/calculate_EM_approx.R
@@ -32,7 +32,7 @@ b933ec2e27dc297be9172656a70bd74a *inst/CITATION
 4cc5b996aa6c44d3971a20f6420726a2 *man/CviCol.Rd
 1b1b733e87c9f8e53e7399e6c681d48b *man/R.approx.Rd
 aaae64c9e92117a65b749c686450ae87 *man/R.gibbs.Rd
-a7a3eff465e5b47516a992cbd9e31b10 *man/buildMap.Rd
+a51077c232dfdaa8937ff25e8991087a *man/buildMap.Rd
 b2874be4cfec66bc438f45228f17eadf *man/cal.pos.Rd
 ad3c5658c96308d6549984f52ec1bf9b *man/cross2netgwas.Rd
 af171beb50eefdbf73cdffc4af1edcc6 *man/cutoffs.Rd
@@ -41,7 +41,7 @@ af171beb50eefdbf73cdffc4af1edcc6 *man/cutoffs.Rd
 8e3c91def740496dc70b79401718b4ac *man/netgwas-internal.Rd
 61303dfc56100c9bc087bae8474bbcab *man/netgwas-package.Rd
 7c483e0124734fab0210366ea1ba83d7 *man/netgwas2cross.Rd
-28b5c06b00574fafc823cc59eaec0242 *man/netmap.Rd
+910ea772c247189c3a41e46c25d7c4d1 *man/netmap.Rd
 3f065131fd4f76d0ad586c89b831bd77 *man/netphenogeno.Rd
 8443d362fe97f9c8de1530a00dd757d8 *man/netsnp.Rd
 3c9ed661a8eb70d13e74ef44ba38adaa *man/plot.netgwas.Rd
@@ -55,7 +55,7 @@ a34a240d45af2038c08f084816f2c681 *man/print.select.Rd
 5a10c6009b0175d4c929614e361d42f0 *man/selectnet.Rd
 e16d1c1e364133118f8d3eafa96e8ea6 *man/simGeno.Rd
 46eacde1d6aec8109b38c04d8413ed1d *man/simRIL.Rd
-98048de72bc127fe4a3f8f1bcebf310a *man/tetraPotato.Rd
+b90dac81fe7ad15a4ae8a50966b769e2 *man/tetraPotato.Rd
 b8b3ea5660d5f6f3526dfe6fd56d6b69 *man/thaliana.Rd
 ee7e5b7b1602728e9f1dd009d032ed3a *tests/testthat.R
 684fc457da9122f1c6aa9d7cf6fd7403 *tests/testthat/test_buildMap.R

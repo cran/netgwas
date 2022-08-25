@@ -64,10 +64,10 @@ buildMap.internal = function( network, cross, num.iso.m, use.comu )
 				adj <- as.matrix(abs(sign(th.LG)) - diag(ncol(th.LG)))
 				if(length(unique(adj[upper.tri(adj)])) == 1) adj[1,2] <- adj[2,1] <- 0  #full graph
 			
-				adj <- graphAM(adj)
-                cuthill <- cuthill_mckee(adj)
+				cuthill <- cuthill_mckee(adj)
 				ord[[lg]] <- colnames(cuthill)
 				ind <- match(colnames(cuthill), colnames(th.LG))
+				#adj <- graphAM(adj)
 				#cuthill <- cuthill.mckee.ordering(adj)
 				#ord[[lg]] <- cuthill$`reverse cuthill.mckee.ordering`
 				#ind <- match(cuthill$`reverse cuthill.mckee.ordering`, colnames(th.LG))
@@ -141,7 +141,7 @@ buildMap = function(res, opt.index, min.m = NULL, use.comu = FALSE){
                 cuthill <- cuthill_mckee(adj)
                 ord[[lg]] <- colnames(cuthill)
 				ind <- match(colnames(cuthill), colnames(th.LG))
-                #adj <- graphAM(adj)
+        #adj <- graphAM(adj)
 				#cuthill <- RBGL :: cuthill.mckee.ordering(adj)
 				#ord[[lg]] <- cuthill$`reverse cuthill.mckee.ordering`
 				#ind <- match(cuthill$`reverse cuthill.mckee.ordering`, colnames(th.LG))
