@@ -1,4 +1,5 @@
 \name{netgwas-internal}
+\alias{netgwas-internal}
 \title{netgwas-internal}
 
 \description{
