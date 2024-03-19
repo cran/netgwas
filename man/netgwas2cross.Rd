@@ -18,7 +18,7 @@ Convertes \code{netgwasmap} object from  \code{net.map} or \code{buildMap} funct
 }
 
 \details{
-  If \code{pop.typ = "RILn"} the number of generations of selfing is limited to 20 to ensure sensible input. The constructed object is returned as a R/qtl \code{cross} object with the appropriate class structure. For \code{"RILn"} populations the constructed object is given the class {"bcsft"} by using the \pkg{qtl} package conversion function \code{convert2bcsft} with arguments \code{F.gen = n} and \code{BC.gen = 0}. For \code{"ARIL"} populations the constructed object is given the class \code{"riself"}.
+  If \code{pop.typ = "RILn"} the number of generations of selfing is limited to 20 to ensure sensible input. The constructed object is returned as a R/qtl \code{cross} object with the appropriate class structure. For \code{"RILn"} populations the constructed object is given the class \code{"bcsft"} by using the \pkg{qtl} package conversion function \code{convert2bcsft} with arguments \code{F.gen = n} and \code{BC.gen = 0}. For \code{"ARIL"} populations the constructed object is given the class \code{"riself"}.
   
   In R/\pkg{qtl} package, the genotype data for a backcross is coded as NA = missing, 1 = AA, 2 = AB. For an F2 intercross, the coding is NA = missing, 1 = AA, 2 = AB, 3 = BB, 4 = not BB (i.e. AA or AB), 5 = not AA (i.e. AB or BB).
 }

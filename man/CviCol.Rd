@@ -12,7 +12,7 @@
 }  
 
 \details{
-The \emph{Arabidopsis thaliana} genotype data is derived from a RIL cross between Columbia-0 (Col-0) and the Cape Verde Island (Cvi-0), where 367 individuals were genotyped for 90 genetic markers. This is a diploid population with three possible genotpe states \code{(k = 3)}, where the genotypes coded as {0, 1, 2}, where 0 and 2 represent the homozygous genotypes and 1 defines the heterozygous genotype. \cr
+The \emph{Arabidopsis thaliana} genotype data is derived from a RIL cross between Columbia-0 (Col-0) and the Cape Verde Island (Cvi-0), where 367 individuals were genotyped for 90 genetic markers. This is a diploid population with three possible genotpe states \code{(k = 3)}, where the genotypes coded as \code{0, 1, 2}, where 0 and 2 represent the homozygous genotypes and 1 defines the heterozygous genotype. \cr
 This data set can be used to detect epistatic selection, short- and long- range linkage disequilibrium between 90 SNP markers. 
 }
 

@@ -1,7 +1,7 @@
 Package: netgwas
 Type: Package
 Title: Network-Based Genome Wide Association Studies
-Version: 1.14.2
+Version: 1.14.3
 Authors@R: c(person(given = "Pariya",
            family = "Behrouzi",
            role = c("aut", "cre"),
@@ -24,9 +24,9 @@ Description: A multi-core R package that contains a set of tools based on copula
              <doi:10.1111/rssc.12287> and Behrouzi and Wit (2017) <doi:10.1093/bioinformatics/bty777>. 
 License: GPL-3
 Encoding: UTF-8
-Date/Publication: 2023-08-07 14:40:02 UTC
+Date/Publication: 2024-03-19 15:30:02 UTC
 NeedsCompilation: no
-Packaged: 2023-08-07 13:51:25 UTC; behro001
+Packaged: 2024-03-19 14:55:25 UTC; behro001
 Author: Pariya Behrouzi [aut, cre] (<https://orcid.org/0000-0001-6762-5433>),
   Ernst C. Wit [ctb]
 Maintainer: Pariya Behrouzi <pariya.behrouzi@gmail.com>

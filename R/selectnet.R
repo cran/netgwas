@@ -344,7 +344,7 @@ calculate.strength.theta <- function(theta){
   {
     for(j in 1:ncol(theta))
     {
-      cond.cor[i,j] <- - theta[i,j]/ sqrt(theta[i,i])* sqrt(theta[j,j])
+      cond.cor[i,j] <- - (theta[i,j])/ (sqrt(theta[i,i])* sqrt(theta[j,j]))
     }
   }
   id <- colnames(theta)

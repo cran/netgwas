@@ -23,7 +23,7 @@ simgeno( p = 90, n = 200, k = NULL, g = NULL, adjacent = NULL, alpha =
 	\item{con.dist}{ The distribution of underlying continuous variable. If \code{con.dist = "Mnorm"}, a multivariate normal distribution with mean 0 is applied. If \code{con.dist = "Mt"}, the t-distribution with \code{a} degrees of freedom is applied. 
 	The default distribution is \code{con.dist = "Mnorm"}.}
 	\item{d}{The degrees of freedom of the continuous variable, only applicable when 
-	code{con.dist = "Mt"}. The default value is 3.}
+	\code{con.dist = "Mt"}. The default value is 3.}
 	\item{vis}{ Visualize the graph pattern and the adjacency matrix of the true graph structure. The default value is TRUE.}
 }
 
