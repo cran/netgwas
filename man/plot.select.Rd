@@ -4,7 +4,7 @@
 \title{ Plot function for S3 class "select" }
 
 \description{
-Plot the optimal graph by model selection  
+Plot the optimal graph by model selection
 }
 
 \usage{
@@ -12,8 +12,8 @@ Plot the optimal graph by model selection
 , ..., layout= NULL, label.vertex= "all", vertex.size= NULL, vertex.color= NULL,
 edge.color= "gray29", sel.nod.label= NULL, label.size = NULL, w.btw= 800,
  w.within = 10, sign.edg= TRUE, edge.width= NULL, edge.label= NULL,
-max.degree= NULL, layout.tree= NULL, root.node= NULL, degree.node= NULL,  
-curve= FALSE, delet.v =TRUE, pos.legend= "bottomleft", cex.legend= 0.8, 
+max.degree= NULL, layout.tree= NULL, root.node= NULL, degree.node= NULL,
+curve= FALSE, delet.v =TRUE, pos.legend= "bottomleft", cex.legend= 0.8,
 iterl = NULL, temp = NULL, tk.width = NULL, tk.height= NULL)
 }
 
@@ -39,7 +39,7 @@ Also, there are 3 options to visulaze the selected graph as a matrix: (i) \code{
 	\item{edge.width}{Optional. ONLY applicable when \code{vis}= "parcor.network". Based on the strength of partial correlation values, edges will shown with different line type. Default is FALSE.}
 	\item{edge.label}{Optional. ONLY applicable when \code{vis}= "parcor.network". If TRUE then the partial correlation values will be shown on top of each edge. Default is FALSE.}
 	\item{max.degree}{Optional. ONLY applicable when \code{vis}= "parcor.network". A number showing degree of a node. This can be used to print those vertex labels that the correspondence vertex have at least e.g. 1 degree.}
-	\item{layout.tree}{Optional. ONLY applicable when \code{vis}= "parcor.network". If TRUE then it uses \code{layout_as_tree} from \code{igraph} package. Default is FALSE.} 
+	\item{layout.tree}{Optional. ONLY applicable when \code{vis}= "parcor.network". If TRUE then it uses \code{layout_as_tree} from \code{igraph} package. Default is FALSE.}
 	\item{root.node}{Optional. ONLY applicable when \code{vis}= "parcor.network". The index of the root vertex or root vertices. If this is a non-empty vector then the supplied vertex ids are used as the roots of the trees . If it is an empty vector, then the root vertices are automatically calculated based on topological sorting, performed with the opposite mode than the mode argument. After the vertices have been sorted, one is selected from each component.}
 	\item{degree.node}{Optional. ONLY applicable when \code{vis}= "parcor.network". It is related to the vertex label degree. It controls the position of the labels with respect to the vertices. Value are for example -pi/2, 0, pi/2, pi sets above, to the right, below, to the left of a node, respectively.}
 	\item{curve}{Optional. ONLY applicable when \code{vis}= "parcor.network". Edge curvature, range between 0 and 1 (FALSE sets it to 0, TRUE to 0.5). Default is FALSE.}
@@ -53,13 +53,13 @@ Also, there are 3 options to visulaze the selected graph as a matrix: (i) \code{
 }
 
 \value{
-An object with S3 class \code{"select"} is returned:  
+An object with S3 class \code{"select"} is returned:
  \item{network}{ Plot of a selected graph,  when \code{vis}= "CI".}
  \item{adjacency}{ Conditional independence (CI) relationships between variables, when \code{vis}= "CI"}
  \item{network}{Interactive plot of a selected graph with .eps format, when \code{vis}= "interactive"}
 }
 
-\author{ 
+\author{
   Pariya Behrouzi \cr
   Maintainer: Pariya Behrouzi \email{pariya.behrouzi@gmail.com} \cr
 }
@@ -68,18 +68,18 @@ An object with S3 class \code{"select"} is returned:
 Behrouzi, P., and Wit, E. C. (2017c). netgwas: An R Package for Network-Based Genome-Wide Association Studies. arXiv preprint, arXiv:1710.01236.
 }
 
-\seealso{\code{\link{select}}}
+%\seealso{\code{\link{select}}}
 
 
 \examples{
-	\donttest{	   
+	\donttest{
 		#simulate data
 		data(CviCol)
 		out <- netsnp(CviCol)
 		sel <- selectnet(out)
-		
-		cl <- c(rep("palegoldenrod", 24), rep("white",14), rep("tan1",17), 
+
+		cl <- c(rep("palegoldenrod", 24), rep("white",14), rep("tan1",17),
             rep("gray",16), rep("lightblue2",19))
-    plot(sel, vis= "parcor.network", sign.edg = TRUE, layout = NULL, vertex.color = cl)    
+    plot(sel, vis= "parcor.network", sign.edg = TRUE, layout = NULL, vertex.color = cl)
 	}
 }

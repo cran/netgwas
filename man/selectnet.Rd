@@ -4,11 +4,11 @@
 \title{ Model selection }
 
 \description{
-Estimate the optimal regularization parameter at EM convergence based on different information criteria . 
+Estimate the optimal regularization parameter at EM convergence based on different information criteria .
 }
 
 \usage{
-selectnet(netgwas.obj, opt.index= NULL, criteria= NULL, ebic.gamma=0.5, 
+selectnet(netgwas.obj, opt.index= NULL, criteria= NULL, ebic.gamma=0.5,
 		   ncores= NULL, verbose= TRUE)
 }
 
@@ -23,11 +23,11 @@ selectnet(netgwas.obj, opt.index= NULL, criteria= NULL, ebic.gamma=0.5,
 
 \details{
 This function computes extended Bayesian information criteria (ebic), Bayesian information criteria, Akaike information criterion (aic) at EM convergence based on observed or joint log-likelihood.
-The observed log-likelihood can be obtained through  
+The observed log-likelihood can be obtained through
 
 \deqn{\ell_Y(\widehat{\Theta}_\lambda) = Q(\widehat{\Theta}_\lambda | \widehat{\Theta}^{(m)}) - H (\widehat{\Theta}_\lambda | \widehat{\Theta}^{(m)}),}
 
-Where \eqn{Q} can be calculated from \code{\link{netmap}}, \code{\link{netsnp}}, \code{\link{netphenogeno}} function and H function is 
+Where \eqn{Q} can be calculated from \code{\link{netmap}}, \code{\link{netsnp}}, \code{\link{netphenogeno}} function and H function is
 \deqn{H(\widehat{\Theta}_\lambda | \widehat{\Theta}^{(m)}_\lambda) = E_z[\ell_{Z | Y}(\widehat{\Theta}_\lambda) | Y; \widehat{\Theta}_\lambda] = E_z[\log f(z)| Y ;\widehat{\Theta}_\lambda ] - \log p(y).}
 
 The "ebic" and "aic" model selection criteria can be obtained as follow
@@ -47,7 +47,7 @@ An obj with S3 class "selectnet" is returned:
  \item{opt.rho}{ The selected regularization parameter. }
  \item{par.cor}{ A partial correlation matrix. }
  \item{V.names}{ Variables name whose are not isolated. }
- 
+
 and anything else that is included in the input \code{netgwas.obj}.
  }
 
@@ -60,7 +60,7 @@ and anything else that is included in the input \code{netgwas.obj}.
 6. Foygel, R. and M. Drton. (2010). Extended bayesian information criteria for Gaussian graphical models. In Advances in Neural Information Processing Systems, pp. 604-612.
 }
 
-\author{ 
+\author{
   Pariya Behrouzi and Ernst C.Wit \cr
   Maintainer: Pariya Behrouzi \email{pariya.behrouzi@gmail.com} \cr
 }
@@ -74,7 +74,7 @@ and anything else that is included in the input \code{netgwas.obj}.
 		plot(out)
 		sel <- selectnet(out, criteria = "ebic")
     }
-	\donttest{	   
+	\donttest{
 		#simulate data
 		D <- simgeno(p=50, n=100, k= 3, adjacent = 3, alpha = 0.06 , beta = 0.06)
 		plot(D)

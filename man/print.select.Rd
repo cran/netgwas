@@ -4,7 +4,7 @@
 Print function for S3 class "select"
 }
 \description{
-Print function for \code{\link{selectnet}}. 
+Print function for \code{\link{selectnet}}.
 }
 \usage{
 \method{print}{select}(x, ...)
@@ -18,7 +18,7 @@ System reserved (No specific usage)
 }
 }
 
-\author{ 
+\author{
   Pariya Behrouzi and Ernst C. Wit \cr
   Maintainer: Pariya Behrouzi \email{pariya.behrouzi@gmail.com} \cr
 }

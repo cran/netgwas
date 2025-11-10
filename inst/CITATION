@@ -8,7 +8,6 @@ bibentry(bibtype="Article",
          pages="18--37",
          year= "2023",
          doi = "10.32614/RJ-2023-011",
-         url = "https://journal.r-project.org/articles/RJ-2023-011/",
          textVersion =
            paste("Behrouzi, P., Arends, D., Wit, E. C. (2023).",
                  "netgwas: An R Package for Network-Based Genome-Wide Association Studies.",
@@ -23,8 +22,7 @@ bibentry( bibtype = "Article",
           pages ="141--160",
           year = "2019",
           doi = "10.1111/rssc.12287",
-          url = "https://academic.oup.com/jrsssc/article/68/1/141/7058419/",
-          textVersion =
+                    textVersion =
               paste("Behrouzi, P., Wit, E. C. (2019).",
                     "Detecting epistatic selection with partially observed genotype data by using copula graphical models",
                     "Journal of the Royal Statistical Society: Series C (Applied Statistics), 68, 141--160 < doi:10.1111/rssc.12287>.")
@@ -38,7 +36,6 @@ bibentry( bibtype = "Article",
           pages ="1083–1093",
           year  = "2019",
           doi = "10.1093/bioinformatics/bty777",
-          url = "https://academic.oup.com/bioinformatics/article/35/7/1083/5090452/",
           textVersion =
             paste("Behrouzi, P., Wit, E. C. (2019).",
                   "De novo construction of q-ploid linkage maps using discrete graphical models",
